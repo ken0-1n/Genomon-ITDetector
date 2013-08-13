@@ -35,7 +35,7 @@ SetUp
   create 11.ooc file.  
   **$ ./blat -makeOoc=11.ooc -repMatch=2253 -tileSize=11 out.2bit test.fa test.psl**  
 
-5. Open config.env and set each entry.
+5. Open config.env and set each entry.  
   **a reference genome**: the path to the reference genome (.fasta) to which your sequence data is aligned.(we just test on the hg19 human genome reference from UCSC.)  
   **a 2bit reference genome for blat**: the path to the 2bit reference genome (.2bit) you created in the SetUp 4 section.  
   **a 11.ooc file for blat**: the path to the 11.ooc file you created in the SetUp 4 section.  
