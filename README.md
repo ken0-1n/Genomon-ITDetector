@@ -12,6 +12,7 @@ Dependecy
 * [fasta36](http://faculty.virginia.edu/wrpearson/fasta/fasta36/)
 * [SAMtools](http://samtools.sourceforge.net/)
 * [Picard](http://picard.sourceforge.net/)
+* [the UCSC site](http://hgdownload.cse.ucsc.edu/goldenpath/hg19/database/)
 
 SetUp
 ----------
@@ -26,8 +27,7 @@ SetUp
   **SAMtools** (Ver. 0.1.18).  
   **Picard** (Ver. 1.39).  
 
-3. Download the refGene.txt, knownGene.txt, ensGene.txt and simpleRepeat.txt files from the UCSC site and place them under the Genomon-ITDetector directory.  
-[the UCSC site](http://hgdownload.cse.ucsc.edu/goldenpath/hg19/database/)
+3. Download the refGene.txt, knownGene.txt, ensGene.txt and simpleRepeat.txt files from the UCSC site and place them under the Genomon-ITDetector directory and unpack them.  
 
 4. create a 11.ooc file and a 2bit reference genome for blat.  
   change dir to the blat dir and create 2bit reference genome.  
