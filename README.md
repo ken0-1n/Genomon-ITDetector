@@ -25,3 +25,11 @@ SetUp
   **fasta36** (Ver. 3.5c).  
   **SAMtools** (Ver. 0.1.18).  
   **Picard** (Ver. 1.39).  
+
+3.  
+
+4. create a 11.ooc file and a 2bit reference genome for blat.  
+  change dir to the blat dir and create 2bit reference genome.  
+  **$ ./faToTwoBit in.fa out.2bit**  
+  create 11.ooc file.  
+  **$ ./blat -makeOoc=11.ooc -repMatch=2253 -tileSize=11 out.2bit test.fa test.psl**  
