@@ -60,7 +60,7 @@ Then you will get the 'itd_list.tsv' under the specified output directory.
 
 Copyright
 ----------
-Copyright (c) 2012, Kenichi Chiba, Yuichi Shiraishi
+Copyright (c) 2013, Kenichi Chiba, Yuichi Shiraishi
 
 Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
   * Redistributions of source code must retain the above copyright notice, this list of conditions and the following disclaimer.
