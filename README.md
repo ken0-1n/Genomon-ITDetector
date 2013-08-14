@@ -11,7 +11,6 @@ Dependecy
 * [CAP3](http://seq.cs.iastate.edu/)
 * [fasta36](http://faculty.virginia.edu/wrpearson/fasta/fasta36/)
 * [SAMtools](http://samtools.sourceforge.net/)
-* [Picard](http://picard.sourceforge.net/)
 * [refGene.txt, knownGene.txt, ensGene.txt and simpleRepeat.txt from the UCSC site](http://hgdownload.cse.ucsc.edu/goldenpath/hg19/database/)
 
 SetUp
@@ -25,7 +24,6 @@ SetUp
   **CAP3**  (Ver.Date: 12/21/07).  
   **fasta36** (Ver. 3.5c).  
   **SAMtools** (Ver. 0.1.18).  
-  **Picard** (Ver. 1.39).  
 
 3. Download the refGene.txt, knownGene.txt, ensGene.txt and simpleRepeat.txt files from **the UCSC site** and place them under the Genomon-ITDetector directory, and then unpack them.  
 
@@ -44,6 +42,29 @@ SetUp
   **CAP3 path**: the path to the CAP3 executable  
   **fasta36 path**: the path to the fasta36 executable  
   **SAMtools path**: the path to the SAMtools executable  
+
+Output
+---
+  **ITDContig**:
+  **length**:
+  **junction len**:
+  **select junction**:
+  **pct contig len**:
+  **pct aligned**:
+  **exon**:
+  **intron**:
+  **5putr**:
+  **3putr**:
+  **noncoding exon**:
+  **noncoding intron**:
+  **ens gene**:
+  **known gene**:
+  **tandem repeat**:
+  **inhouse**:
+  **inhouse junction start**:
+  **inhouse junction end**:
+  **check**:
+
 
 How to run
 ---
