@@ -70,25 +70,27 @@ Output
 ---
 
 The columns are exaplined below:   
-  **ITDContig**:   
-  **length**:   
-  **junction len**:   
-  **select junction**:   
-  **pct contig len**:   
-  **pct aligned**:   
-  **exon**:   
-  **intron**:   
-  **5putr**:   
-  **3putr**:   
-  **noncoding exon**:   
-  **noncoding intron**:   
-  **ens gene**:   
-  **known gene**:   
-  **tandem repeat**:   
+  **ITD_breakpoint_pair(ITD-BPP)**:   
+  **supported_reads(strand+)supported_reads(strand-)**:   
+  **junction_len**:   
+  **average_depth**:   
+  **chr(contig) start_position(contig) end_position(contig)**:   
+  **assembled_contig_sequence_length**:   
+  **chr(OIN) start_position(OIN) end_position(OIN)**:   
+  **observed_inserted_nucleotide(OIN)**:   
+  **length(OIN) length(PDN)**:   
+  **selected_ITD-BPP"**:   
+  **matched_bases / length(PDN)**:   
+  **length(OIN) / length(PDN)**:   
+  **matched_bases / length(OIN)**:   
+  **exon_intron 5putr 3putr noncoding_exon noncoding_intron**:   
+  **ens_gene**:   
+  **known_gene**:   
+  **tandem_repeat**:   
   **inhouse**:   
-  **inhouse junction start**:   
-  **inhouse junction end**:   
-  **check**:   
+  **inhouse_left_breakpoint**:   
+  **inhouse_right_breakpoint**:   
+  **grade**:   
 
 
 Copyright
