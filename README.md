@@ -65,6 +65,7 @@ Just type the following command
 
     $ bash detectITD.sh testdata/testin.bam testout testsample
 
+Result is stored under the testout directory.
 
 Output
 ---
@@ -75,21 +76,21 @@ The columns are exaplined below:
   **average_depth**: average sequencing depths    
   **chr(contig) start_position(contig) end_position(contig)**: the position of the assembled contig sequence.   
   **assembled_contig_sequence**: result of assembling support reads and their mape pairs.   
-  **length**:  assembled contig sequence length   
+  **length**:  assembled contig sequence length.   
   **chr(OIN) start_position(OIN) end_position(OIN)**: the position of the OIN.  
   **observed_inserted_nucleotide(OIN)**: unmapped part on contig sequencing.  
-  **length(OIN) length(PDN)**: OIN and PDN length   
-  **selected_ITD-BPP"**:   
-  **matched_bases / length(PDN)**:   
-  **length(OIN) / length(PDN)**:   
-  **matched_bases / length(OIN)**:   
-  **exon intron 5putr 3putr noncoding_exon noncoding_intron**:   
+  **length(OIN) length(PDN)**: the OIN and the PDN length.   
+  **selected_ITD-BPP"**: selection more reliable ITD-BPP. If the ITD breakpoint position is the same, '1,2' is output.   
+  **matched_bases / length(PDN)**: the number of matched bases between the OIN and the PDN / the PDN length.   
+  **length(OIN) / length(PDN)**: the OIN length / the PDN length.   
+  **matched_bases / length(OIN)**: the number of matched bases between the OIN and the PDN / the OIN length.  
+  **exon intron 5putr 3putr noncoding_exon noncoding_intron**: annotating RefSeq GeneName and GeneID, if there is overlap between ITD-BPP and gene position.   
   **ens_gene**:   
   **known_gene**:   
   **tandem_repeat**:   
-  **inhouse**:   
-  **inhouse_left_breakpoint**:   
-  **inhouse_right_breakpoint**:   
+  **inhouse**: annotating control sample name, if there is overlap between ITD-BPP and ITD-BPP as a set of control sample.      
+  **inhouse_left_breakpoint**: 
+  **inhouse_right_breakpoint**:
   **grade**:   
 
 
