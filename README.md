@@ -34,14 +34,14 @@ SetUp
   **$ ./blat -makeOoc=11.ooc -repMatch=2253 -tileSize=11 out.2bit test.fa test.psl**  
 
 5. Open config.env and set each entry.  
-  **a reference genome**: the path to the reference genome (.fasta) to which your sequence data is aligned.(we just test on the hg19 human genome reference from the UCSC site.)  
-  **a 2bit reference genome for blat**: the path to the 2bit hg19 human genome reference (.2bit) you created in the SetUp 4 section.  
-  **a 11.ooc file for blat**: the path to the 11.ooc file you created in the SetUp 4 section.  
-  **blat path**: the path to the blat executable  
-  **BEDtools path**: the path to the BEDtools executable  
-  **CAP3 path**: the path to the CAP3 executable  
-  **fasta36 path**: the path to the fasta36 executable  
-  **SAMtools path**: the path to the SAMtools executable  
+  **PATH_TO_HG19REF**: the path to the reference genome (.fasta) to which your sequence data is aligned.(we just test on the hg19 human genome reference from the UCSC site.)  
+  **PATH_TO_BLAT_REF**: the path to the 2bit hg19 human genome reference (.2bit) you created in the SetUp 4 section.  
+  **PATH_TO_BLAT_OOC**: the path to the 11.ooc file you created in the SetUp 4 section.  
+  **PATH_TO_BLAT**: the path to the blat executable  
+  **PATH_TO_BED_TOOLS**: the path to the BEDtools executable  
+  **PATH_TO_CAP3**: the path to the CAP3 executable  
+  **PATH_TO_FASTA**: the path to the fasta36 executable  
+  **PATH_TO_SAMTOOLS**: the path to the SAMtools executable  
 
 Output
 ---
