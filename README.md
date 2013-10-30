@@ -71,19 +71,19 @@ Output
 
 The columns are exaplined below:   
   **ITD_breakpoint_pair(ITD-BPP)**:   
-  **supported_reads(strand+)supported_reads(strand-)**:   
-  **junction_len**:   
-  **average_depth**:   
-  **chr(contig) start_position(contig) end_position(contig)**:   
-  **assembled_contig_sequence_length**:   
-  **chr(OIN) start_position(OIN) end_position(OIN)**:   
-  **observed_inserted_nucleotide(OIN)**:   
-  **length(OIN) length(PDN)**:   
+  **supported_reads(strand+)supported_reads(strand-)**: the ratio of support reads aligned to positive(negative) strand.   
+  **average_depth**: average sequencing depths    
+  **chr(contig) start_position(contig) end_position(contig)**: the position of the assembled contig sequence.   
+  **assembled_contig_sequence**: result of assembling support reads and their mape pairs.   
+  **length**:  assembled contig sequence length   
+  **chr(OIN) start_position(OIN) end_position(OIN)**: the position of the OIN.  
+  **observed_inserted_nucleotide(OIN)**: unmapped part on contig sequencing.  
+  **length(OIN) length(PDN)**: OIN and PDN length   
   **selected_ITD-BPP"**:   
   **matched_bases / length(PDN)**:   
   **length(OIN) / length(PDN)**:   
   **matched_bases / length(OIN)**:   
-  **exon_intron 5putr 3putr noncoding_exon noncoding_intron**:   
+  **exon intron 5putr 3putr noncoding_exon noncoding_intron**:   
   **ens_gene**:   
   **known_gene**:   
   **tandem_repeat**:   
