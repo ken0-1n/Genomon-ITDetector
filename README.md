@@ -49,7 +49,7 @@ How to run
 
 Create the annotation database
 
-    $ bash makeAnnoDB.sh
+    $ bash createAnnoDB.sh
 
 Just type the following command
 
