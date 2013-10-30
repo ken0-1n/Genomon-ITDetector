@@ -210,7 +210,7 @@ if [ $only_annotation -eq 0 ]; then
     check_error $?
   fi
   perl ${SCRIPTDIR}/psl2itdcontig.pl ${TRDIR}/itdContig.psl ${TRDIR}/itdContig.list 10 ${TRDIR}/juncListitd12.txt
-  Check_error $?
+  check_error $?
 
 #__COMMENT_OUT__
   echo "Step3. Check Assembled Contigs."
