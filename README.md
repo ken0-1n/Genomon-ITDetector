@@ -43,28 +43,6 @@ SetUp
   **PATH_TO_FASTA**: the path to the fasta36 executable  
   **PATH_TO_SAMTOOLS**: the path to the SAMtools executable  
 
-Output
----
-  **ITDContig**:
-  **length**:
-  **junction len**:
-  **select junction**:
-  **pct contig len**:
-  **pct aligned**:
-  **exon**:
-  **intron**:
-  **5putr**:
-  **3putr**:
-  **noncoding exon**:
-  **noncoding intron**:
-  **ens gene**:
-  **known gene**:
-  **tandem repeat**:
-  **inhouse**:
-  **inhouse junction start**:
-  **inhouse junction end**:
-  **check**:
-
 
 How to run
 ---
@@ -78,6 +56,32 @@ Just type the following command
     $ sh detectITD.sh <path to the target bam file> <path to the output directory>
 
 Then you will get the 'itd_list.tsv' under the specified output directory.
+
+
+Output
+---
+
+The columns are exaplined below:   
+  **ITDContig**:   
+  **length**:   
+  **junction len**:   
+  **select junction**:   
+  **pct contig len**:   
+  **pct aligned**:   
+  **exon**:   
+  **intron**:   
+  **5putr**:   
+  **3putr**:   
+  **noncoding exon**:   
+  **noncoding intron**:   
+  **ens gene**:   
+  **known gene**:   
+  **tandem repeat**:   
+  **inhouse**:   
+  **inhouse junction start**:   
+  **inhouse junction end**:   
+  **check**:   
+
 
 Copyright
 ----------
