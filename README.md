@@ -53,9 +53,17 @@ Create the annotation database
 
 Just type the following command
 
-    $ sh detectITD.sh <path to the target bam file> <path to the output directory>
+    $ bash detectITD.sh <path to the target bam file> <path to the output directory>
 
 Then you will get the 'itd_list.tsv' under the specified output directory.
+
+
+Test run
+---
+
+Just type the following command
+
+    $ bash detectITD.sh testdata/testin.bam testout testsample
 
 
 Output
