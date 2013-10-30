@@ -25,7 +25,7 @@ SetUp
   **fasta36** (Ver. 3.5c).  
   **SAMtools** (Ver. 0.1.18).  
 
-3. Download the refGene.txt, knownGene.txt, ensGene.txt and simpleRepeat.txt files from **the UCSC site** and place them under the Genomon-ITDetector directory, and then unpack them.  
+3. Download the refGene.txt, knownGene.txt, ensGene.txt and simpleRepeat.txt files from **the UCSC site** and place them under the Genomon-ITDetector-master/db directory, and then unpack them.  
 
 4. create a 11.ooc file and a 2bit hg19 human genome reference for blat.  
   change dir to the blat dir and create 2bit reference genome.  
