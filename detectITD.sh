@@ -1,7 +1,7 @@
 # /bin/bash
 #$ -S /bin/bash
 #$ -cwd
-#$ -l s_vmem=16G,mem_req=16
+#$ -l s_vmem=8G,mem_req=8
 #$ -e log 
 #$ -o log 
 
@@ -209,9 +209,8 @@ if [ $only_annotation -eq 0 ]; then
     /bin/echo -n > ${TRDIR}/itdContig.psl
     check_error $?
   fi
-  echo "perl ${SCRIPTDIR}/psl2itdcontig.pl ${TRDIR}/itdContig.psl ${TRDIR}/itdContig.list 10 ${TRDIR}/juncListitd12.txt"
   perl ${SCRIPTDIR}/psl2itdcontig.pl ${TRDIR}/itdContig.psl ${TRDIR}/itdContig.list 10 ${TRDIR}/juncListitd12.txt
-  check_error $?
+  Check_error $?
 
 #__COMMENT_OUT__
   echo "Step3. Check Assembled Contigs."
@@ -290,7 +289,6 @@ if [ $only_annotation -eq 0 ]; then
     fi
   done < ${TRDIR}/juncListitd12.txt
 
-  echo "perl ${SCRIPTDIR}/itddetect.pl ${TRDIR}/juncListitd13.txt ${TRDIR}/juncListitd14.txt"
   perl ${SCRIPTDIR}/itddetect.pl ${TRDIR}/juncListitd13.txt ${TRDIR}/juncListitd14.txt
   check_error $?
   mv ${TRDIR}/juncListitd14.txt ${TRDIR}/itd_list_non_inhouse.tsv
@@ -315,16 +313,7 @@ if [ -s ${TRDIR}/itd_list_non_inhouse.tsv ]; then
     junc_end=`echo "$line" | cut -f 3`
     range=${junc_chr}":"${junc_start}"-"${junc_end}
 
-    echo "range ${range}"
-
-    BAMDIR=`dirname ${INPUTBAM}`
-    BAMFILE=`basename ${INPUTBAM}`
-    PWDDIR=`pwd`
-    cd ${BAMDIR}
-    echo "${PATH_TO_SAMTOOLS}/samtools view -h -b -F 1036 ${BAMFILE} ${range} > ${TRDIR}/temp.range.bam"
-    ${PATH_TO_SAMTOOLS}/samtools view -h -b -F 1036 ${BAMFILE} ${range} > ${TRDIR}/temp.range.bam
-    check_error $?
-    cd ${PWDDIR}
+    ${PATH_TO_SAMTOOLS}/samtools view -h -b -F 1036 ${INPUTBAM} ${range} > ${TRDIR}/temp.range.bam
     
     ${PATH_TO_SAMTOOLS}/samtools index ${TRDIR}/temp.range.bam
     check_error $?
@@ -502,85 +491,94 @@ perl ${SCRIPTDIR}/makeITDBed3.pl ${TRDIR}/juncListitd15.list $SAMPLE_NAME > ${TR
 check_error $?
 perl ${SCRIPTDIR}/makeJunctionBed2.pl ${TRDIR}/candJunc.txt $SAMPLE_NAME > ${TRDIR}/inhouse_breakpoint.tsv
 check_error $?
-mv ${TRDIR}/juncListitd17.list ${TRDIR}/itd_list.tsv
+cat ${SCRIPTDIR}/header.txt > ${TRDIR}/itd_list.tsv
+cat ${TRDIR}/juncListitd17.list >> ${TRDIR}/itd_list.tsv
 check_error $?
 #__COMMENT_OUT__
 
 
-rm ${TRDIR}/cj_tmp11_0.bed
-rm ${TRDIR}/cj_tmp12_0.bed
-rm ${TRDIR}/cj_tmp21_0.bed
-rm ${TRDIR}/cj_tmp22_0.bed
-rm ${TRDIR}/candJunc.inter1_0.txt
-rm ${TRDIR}/candJunc.inter2_0.txt
-rm ${TRDIR}/gene.ens.anno.bed
-rm ${TRDIR}/gene.ens.anno.merge.bed
-rm ${TRDIR}/gene.ens.anno.sort.bed
-rm ${TRDIR}/gene.known.anno.bed
-rm ${TRDIR}/gene.known.anno.merge.bed
-rm ${TRDIR}/gene.known.anno.sort.bed
-rm ${TRDIR}/gene.repeat.anno.merge.bed
-rm ${TRDIR}/idseq.txt
-rm ${TRDIR}/itdContig.fa
-rm ${TRDIR}/itdContig.list
-rm ${TRDIR}/itdContig.psl
-rm ${TRDIR}/juncList12.ref.bed
-rm ${TRDIR}/juncList12.ref.fasta
-rm ${TRDIR}/juncList12.ref.txt
-rm ${TRDIR}/juncList12.txt
-rm ${TRDIR}/juncList12.txt.filt
-rm ${TRDIR}/juncList12.txt.filt2
-rm ${TRDIR}/juncList12.txt.merge
-rm ${TRDIR}/juncList12.txt.merge2
-rm ${TRDIR}/juncListitd12.txt
-rm ${TRDIR}/juncListitd13.txt
-rm ${TRDIR}/juncListitd14.bed
-rm ${TRDIR}/juncListitd15.bed
-rm ${TRDIR}/juncListitd15.inhouse.bed
-rm ${TRDIR}/juncListitd16_1.bed
-rm ${TRDIR}/juncListitd16_2.bed
-rm ${TRDIR}/juncListitd16.inhouse.1.bed
-rm ${TRDIR}/juncListitd16.inhouse.2.bed
-rm ${TRDIR}/juncListitd16.list
-rm ${TRDIR}/refGene.merged.coding.3putr.anno.bed
-rm ${TRDIR}/refGene.merged.coding.3putr.merge.bed
-rm ${TRDIR}/refGene.merged.coding.3putr.sort.bed
-rm ${TRDIR}/refGene.merged.coding.5putr.anno.bed
-rm ${TRDIR}/refGene.merged.coding.5putr.merge.bed
-rm ${TRDIR}/refGene.merged.coding.5putr.sort.bed
-rm ${TRDIR}/refGene.merged.coding.exon.anno.bed
-rm ${TRDIR}/refGene.merged.coding.exon.merge.bed
-rm ${TRDIR}/refGene.merged.coding.exon.sort.bed
-rm ${TRDIR}/refGene.merged.coding.intron.anno.bed
-rm ${TRDIR}/refGene.merged.coding.intron.merge.bed
-rm ${TRDIR}/refGene.merged.coding.intron.sort.bed
-rm ${TRDIR}/refGene.merged.noncoding.exon.anno.bed
-rm ${TRDIR}/refGene.merged.noncoding.exon.merge.bed
-rm ${TRDIR}/refGene.merged.noncoding.exon.sort.bed
-rm ${TRDIR}/refGene.merged.noncoding.intron.anno.bed
-rm ${TRDIR}/refGene.merged.noncoding.intron.merge.bed
-rm ${TRDIR}/refGene.merged.noncoding.intron.sort.bed
-rm ${TRDIR}/targetId.sam
-rm ${TRDIR}/temp.cap3.contig
-rm ${TRDIR}/temp.cap3.fa
-rm ${TRDIR}/temp.cap3.fa.cap.ace
-rm ${TRDIR}/temp.cap3.fa.cap.contigs
-rm ${TRDIR}/temp.cap3.fa.cap.contigs.links
-rm ${TRDIR}/temp.cap3.fa.cap.contigs.qual
-rm ${TRDIR}/temp.cap3.fa.cap.info
-rm ${TRDIR}/temp.cap3.fa.cap.singlets
-rm ${TRDIR}/temp.fasta36.itdseq1.fa
-rm ${TRDIR}/temp.fasta36.itdseq2.fa
-rm ${TRDIR}/temp.fasta36.itdseqfef1.fastaTabular
-rm ${TRDIR}/temp.fasta36.itdseqfef2.fastaTabular
-rm ${TRDIR}/temp.fasta36.itdseqref1.fa
-rm ${TRDIR}/temp.fasta36.itdseqref2.fa
-rm ${TRDIR}/temp.range.bam
-rm ${TRDIR}/temp.range.bam.bai
-rm ${TRDIR}/temp.range.bed
-rm ${TRDIR}/temp.range.depth
-rm ${TRDIR}/tmp.inhouse.bed
-rm ${TRDIR}/tmp.junction.bed
+rm -f ${TRDIR}/cj_tmp11_0.bed
+rm -f ${TRDIR}/cj_tmp12_0.bed
+rm -f ${TRDIR}/cj_tmp21_0.bed
+rm -f ${TRDIR}/cj_tmp22_0.bed
+rm -f ${TRDIR}/candJunc.inter1_0.txt
+rm -f ${TRDIR}/candJunc.inter2_0.txt
+rm -f ${TRDIR}/gene.ens.anno.bed
+rm -f ${TRDIR}/gene.ens.anno.merge.bed
+rm -f ${TRDIR}/gene.ens.anno.sort.bed
+rm -f ${TRDIR}/gene.known.anno.bed
+rm -f ${TRDIR}/gene.known.anno.merge.bed
+rm -f ${TRDIR}/gene.known.anno.sort.bed
+rm -f ${TRDIR}/gene.repeat.anno.merge.bed
+rm -f ${TRDIR}/idseq.txt
+rm -f ${TRDIR}/itdContig.fa
+rm -f ${TRDIR}/itdContig.list
+rm -f ${TRDIR}/itdContig.psl
+rm -f ${TRDIR}/juncList12.ref.bed
+rm -f ${TRDIR}/juncList12.ref.fasta
+rm -f ${TRDIR}/juncList12.ref.txt
+rm -f ${TRDIR}/juncList12.txt
+rm -f ${TRDIR}/juncList12.txt.filt
+rm -f ${TRDIR}/juncList12.txt.filt2
+rm -f ${TRDIR}/juncList12.txt.merge
+rm -f ${TRDIR}/juncList12.txt.merge2
+rm -f ${TRDIR}/juncListitd12.txt
+rm -f ${TRDIR}/juncListitd13.txt
+rm -f ${TRDIR}/juncListitd14.bed
+rm -f ${TRDIR}/juncListitd15.bed
+rm -f ${TRDIR}/juncListitd15.inhouse.bed
+rm -f ${TRDIR}/juncListitd16_1.bed
+rm -f ${TRDIR}/juncListitd16_2.bed
+rm -f ${TRDIR}/juncListitd16.inhouse.1.bed
+rm -f ${TRDIR}/juncListitd16.inhouse.2.bed
+rm -f ${TRDIR}/juncListitd16.list
+rm -f ${TRDIR}/juncListitd16_1.txt
+rm -f ${TRDIR}/juncListitd16_2.txt
+rm -f ${TRDIR}/juncListitd16.inhouse.1.txt
+rm -f ${TRDIR}/juncListitd16.inhouse.2.txt
+rm -f ${TRDIR}/juncListitd17.list
+rm -f ${TRDIR}/tmp.bp.left.txt
+rm -f ${TRDIR}/tmp.bp.right.txt
+rm -f ${TRDIR}/tmp.inhouse.txt
+rm -f ${TRDIR}/refGene.merged.coding.3putr.anno.bed
+rm -f ${TRDIR}/refGene.merged.coding.3putr.merge.bed
+rm -f ${TRDIR}/refGene.merged.coding.3putr.sort.bed
+rm -f ${TRDIR}/refGene.merged.coding.5putr.anno.bed
+rm -f ${TRDIR}/refGene.merged.coding.5putr.merge.bed
+rm -f ${TRDIR}/refGene.merged.coding.5putr.sort.bed
+rm -f ${TRDIR}/refGene.merged.coding.exon.anno.bed
+rm -f ${TRDIR}/refGene.merged.coding.exon.merge.bed
+rm -f ${TRDIR}/refGene.merged.coding.exon.sort.bed
+rm -f ${TRDIR}/refGene.merged.coding.intron.anno.bed
+rm -f ${TRDIR}/refGene.merged.coding.intron.merge.bed
+rm -f ${TRDIR}/refGene.merged.coding.intron.sort.bed
+rm -f ${TRDIR}/refGene.merged.noncoding.exon.anno.bed
+rm -f ${TRDIR}/refGene.merged.noncoding.exon.merge.bed
+rm -f ${TRDIR}/refGene.merged.noncoding.exon.sort.bed
+rm -f ${TRDIR}/refGene.merged.noncoding.intron.anno.bed
+rm -f ${TRDIR}/refGene.merged.noncoding.intron.merge.bed
+rm -f ${TRDIR}/refGene.merged.noncoding.intron.sort.bed
+rm -f ${TRDIR}/targetId.sam
+rm -f ${TRDIR}/temp.cap3.contig
+rm -f ${TRDIR}/temp.cap3.fa
+rm -f ${TRDIR}/temp.cap3.fa.cap.ace
+rm -f ${TRDIR}/temp.cap3.fa.cap.contigs
+rm -f ${TRDIR}/temp.cap3.fa.cap.contigs.links
+rm -f ${TRDIR}/temp.cap3.fa.cap.contigs.qual
+rm -f ${TRDIR}/temp.cap3.fa.cap.info
+rm -f ${TRDIR}/temp.cap3.fa.cap.singlets
+rm -f ${TRDIR}/temp.fasta36.itdseq1.fa
+rm -f ${TRDIR}/temp.fasta36.itdseq2.fa
+rm -f ${TRDIR}/temp.fasta36.itdseqfef1.fastaTabular
+rm -f ${TRDIR}/temp.fasta36.itdseqfef2.fastaTabular
+rm -f ${TRDIR}/temp.fasta36.itdseqref1.fa
+rm -f ${TRDIR}/temp.fasta36.itdseqref2.fa
+rm -f ${TRDIR}/temp.range.bam
+rm -f ${TRDIR}/temp.range.bam.bai
+rm -f ${TRDIR}/temp.range.bed
+rm -f ${TRDIR}/temp.range.depth
+rm -f ${TRDIR}/tmp.inhouse.bed
+rm -f ${TRDIR}/tmp.junction.bed
  : <<'#__COMMENT_OUT__'
 #__COMMENT_OUT__
 exit 0
