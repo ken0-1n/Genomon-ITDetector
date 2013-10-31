@@ -91,7 +91,7 @@ The columns are exaplined below:
   **exon intron 5putr 3putr noncoding_exon noncoding_intron**: RefSeq Gene Name and Gene ID.   
   **ens_gene**: Ensamble Gene ID.  
   **known_gene**: Known Gene ID.  
-  **tandem_repeat**:   
+  **tandem_repeat**: Simple Repeat annotation. Output "trf", if overlap between ITD-BPP and simple repeat regions.  
   **inhouse inhouse_left_breakpoint inhouse_right_breakpoint**: control sample name and supported read.       
   **grade**: grade (one of A, B, C) 
 
