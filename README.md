@@ -76,7 +76,7 @@ The columns are exaplined below:
 
 </table>
   **ITD_breakpoint_pair(ITD-BPP)**:   
-  **supported_reads(strand+)supported_reads(strand-)**: ratio of support reads aligned to positive(negative) strand.   
+  **supported_reads(strand+)supported_reads(strand-)**: ratio of supported reads aligned to positive(negative) strand.   
   **average_depth**: average sequencing depths    
   **chr(contig) start_position(contig) end_position(contig)**: position of assembled contig sequence.   
   **assembled_contig_sequence**: result of assembling support reads and their mape pairs.   
@@ -92,8 +92,7 @@ The columns are exaplined below:
   **ens_gene**: Ensamble Gene ID.  
   **known_gene**: Known Gene ID.  
   **tandem_repeat**:   
-  **inhouse**: control sample name.       
-  **inhouse_left_breakpoint inhouse_right_breakpoint**: 
+  **inhouse inhouse_left_breakpoint inhouse_right_breakpoint**: control sample name and supported read.       
   **grade**: grade (one of A, B, C) 
 
 
