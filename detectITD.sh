@@ -558,6 +558,8 @@ rm -f ${TRDIR}/refGene.merged.noncoding.exon.sort.bed
 rm -f ${TRDIR}/refGene.merged.noncoding.intron.anno.bed
 rm -f ${TRDIR}/refGene.merged.noncoding.intron.merge.bed
 rm -f ${TRDIR}/refGene.merged.noncoding.intron.sort.bed
+rm -f ${TRDIR}/gene.repeat.anno.bed
+rm -r ${TRDIR}/gene.repeat.anno.sort.bed
 rm -f ${TRDIR}/targetId.sam
 rm -f ${TRDIR}/temp.cap3.contig
 rm -f ${TRDIR}/temp.cap3.fa

@@ -1,7 +1,6 @@
 #! /usr/local/bin/perl
 
 use strict;
-use warnings;
 
 my $input_list = $ARGV[0];
 my $output1_bed = $ARGV[1];
