@@ -84,7 +84,7 @@ and list the paths of "inhouse_itd.tsv" † files as follows:
 † "inhouse_itd.tsv" is the file which contains the outputs obtained from detectITD.sh   
 
 Please open Genomon-ITDetector/inhouse/normal_inhouse_breakpoint.list †,   
-and list the paths of "inhouse_breakpoint.tsv" † files:
+and list the paths of "inhouse_breakpoint.tsv" † files as follows:
 
     $ /home/your_username/Genomon-ITDetector/testsample01/inhouse_breakpoint.tsv
     $ /home/your_username/Genomon-ITDetector/testsample02/inhouse_breakpoint.tsv
