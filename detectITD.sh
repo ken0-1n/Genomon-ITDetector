@@ -424,8 +424,8 @@ if [ -s ${TRDIR}/juncListitd14.depth.txt ]; then
     /bin/echo -n > ${TRDIR}/gene.known.anno.merge.bed
     check_error $?
   fi
-  if [ -f ${DBDIR}/simpleRepeat.sort.bed ]; then
-    ${PATH_TO_BEDTOOLS}/intersectBed -a ${DBDIR}/simpleRepeat.sort.bed -b ${TRDIR}/juncListitd14.bed -wa > ${TRDIR}/gene.repeat.anno.bed
+  if [ -f ${DBDIR}/gene.repeat.sort.bed ]; then
+    ${PATH_TO_BEDTOOLS}/intersectBed -a ${DBDIR}/gene.repeat.sort.bed -b ${TRDIR}/juncListitd14.bed -wa > ${TRDIR}/gene.repeat.anno.bed
     check_error $?
     sort -u ${TRDIR}/gene.repeat.anno.bed > ${TRDIR}/gene.repeat.anno.sort.bed
     check_error $?
