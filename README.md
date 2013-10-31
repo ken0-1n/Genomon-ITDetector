@@ -106,7 +106,7 @@ results are formatted as TSV format.
 The columns are exaplined below:   
 
 </table>
-  **ITD_breakpoint_pair(ITD-BPP)**: breakpoint pair of ITD. plus(+) means to the right of the breakpoint position and minus(-) means to the left of the breakpoint position.  
+  **ITD_breakpoint_pair(ITD-BPP)**: position of ITD breakpoint pair. plus(+) means to the right of the breakpoint position and minus(-) means to the left of the breakpoint position.  
   **supported_reads(strand+)supported_reads(strand-)**: ratio of supported reads aligned to positive(negative) strand.   
   **average_depth**: average sequencing depths    
   **chr(contig) start_position(contig) end_position(contig)**: position of assembled contig sequence.   
