@@ -79,7 +79,7 @@ The columns are exaplined below:
   **supported_reads(strand+)supported_reads(strand-)**: ratio of supported reads aligned to positive(negative) strand.   
   **average_depth**: average sequencing depths    
   **chr(contig) start_position(contig) end_position(contig)**: position of assembled contig sequence.   
-  **assembled_contig_sequence**: result of assembling support reads and their mape pairs.   
+  **assembled_contig_sequence**: contig sequence of assembling support reads and their mape pairs.   
   **length**: length of assembled contig sequence.   
   **chr(OIN) start_position(OIN) end_position(OIN)**: position of OIN.  
   **observed_inserted_nucleotide(OIN)**: unmapped part on contig sequencing.  
