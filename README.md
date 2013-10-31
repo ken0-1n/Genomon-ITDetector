@@ -47,11 +47,11 @@ SetUp
 Usage
 ---
 
-Create the annotation database
+the command for creating the annotation database
 
     $ bash createAnnoDB.sh
 
-Just type the following command
+the command for detecting ITDs
 
     $ bash detectITD.sh <path to the target bam file> <path to the output directory> <sample name>
 
