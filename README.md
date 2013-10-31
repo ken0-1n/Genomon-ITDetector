@@ -44,7 +44,7 @@ SetUp
   **PATH_TO_SAMTOOLS**: the path to the SAMtools executable  
 
 
-How to run
+Usage
 ---
 
 Create the annotation database
@@ -53,7 +53,7 @@ Create the annotation database
 
 Just type the following command
 
-    $ bash detectITD.sh <path to the target bam file> <path to the output directory>
+    $ bash detectITD.sh <path to the target bam file> <path to the output directory> <sample name>
 
 Then you will get the 'itd_list.tsv' under the specified output directory.
 
