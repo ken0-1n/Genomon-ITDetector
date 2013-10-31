@@ -70,28 +70,31 @@ Result is stored under the testout directory.
 Output
 ---
 
+results are formatted as TSV format.
+
 The columns are exaplined below:   
+
+</table>
   **ITD_breakpoint_pair(ITD-BPP)**:   
-  **supported_reads(strand+)supported_reads(strand-)**: the ratio of support reads aligned to positive(negative) strand.   
+  **supported_reads(strand+)supported_reads(strand-)**: ratio of support reads aligned to positive(negative) strand.   
   **average_depth**: average sequencing depths    
-  **chr(contig) start_position(contig) end_position(contig)**: the position of the assembled contig sequence.   
+  **chr(contig) start_position(contig) end_position(contig)**: position of assembled contig sequence.   
   **assembled_contig_sequence**: result of assembling support reads and their mape pairs.   
-  **length**:  assembled contig sequence length.   
-  **chr(OIN) start_position(OIN) end_position(OIN)**: the position of the OIN.  
+  **length**: length of assembled contig sequence.   
+  **chr(OIN) start_position(OIN) end_position(OIN)**: position of OIN.  
   **observed_inserted_nucleotide(OIN)**: unmapped part on contig sequencing.  
-  **length(OIN) length(PDN)**: the OIN and the PDN length.   
-  **selected_ITD-BPP"**: selection more reliable ITD-BPP. If the ITD breakpoint position is the same, '1,2' is output.   
-  **matched_bases / length(PDN)**: the number of matched bases between the OIN and the PDN / the PDN length.   
-  **length(OIN) / length(PDN)**: the OIN length / the PDN length.   
-  **matched_bases / length(OIN)**: the number of matched bases between the OIN and the PDN / the OIN length.  
-  **exon intron 5putr 3putr noncoding_exon noncoding_intron**: annotating RefSeq GeneName and GeneID, if there is overlap between ITD-BPP and gene position.   
-  **ens_gene**:   
-  **known_gene**:   
+  **length(OIN) length(PDN)**: length of OIN and PDN.   
+  **selected_ITD-BPP"**: reliability ITD-BPP (1 or 2). If the ITD-BPP is the same, '1,2' is output.   
+  **matched_bases / length(PDN)**: the number of matched bases between the OIN and the PDN / length of PDN.   
+  **length(OIN) / length(PDN)**: length of OIN / length of PDN.   
+  **matched_bases / length(OIN)**: the number of matched bases between the OIN and the PDN / length of OIN.  
+  **exon intron 5putr 3putr noncoding_exon noncoding_intron**: RefSeq Gene Name and Gene ID.   
+  **ens_gene**: Ensamble Gene ID.  
+  **known_gene**: Known Gene ID.  
   **tandem_repeat**:   
-  **inhouse**: annotating control sample name, if there is overlap between ITD-BPP and ITD-BPP as a set of control sample.      
-  **inhouse_left_breakpoint**: 
-  **inhouse_right_breakpoint**:
-  **grade**:   
+  **inhouse**: control sample name.       
+  **inhouse_left_breakpoint inhouse_right_breakpoint**: 
+  **grade**: grade (one of A, B, C) 
 
 
 Copyright
