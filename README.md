@@ -85,9 +85,9 @@ The columns are exaplined below:
   **observed_inserted_nucleotide(OIN)**: unmapped part on contig sequencing.  
   **length(OIN) length(PDN)**: length of OIN and PDN.   
   **selected_ITD-BPP"**: reliability ITD-BPP (1 or 2). If the ITD-BPP is the same, '1,2' is output.   
-  **matched_bases / length(PDN)**: the number of matched bases between the OIN and the PDN / length of PDN.   
+  **matched_bases / length(PDN)**: the number of matched bases between OIN and PDN / length of PDN.   
   **length(OIN) / length(PDN)**: length of OIN / length of PDN.   
-  **matched_bases / length(OIN)**: the number of matched bases between the OIN and the PDN / length of OIN.  
+  **matched_bases / length(OIN)**: the number of matched bases between OIN and PDN / length of OIN.  
   **exon intron 5putr 3putr noncoding_exon noncoding_intron**: RefSeq Gene Name and Gene ID.   
   **ens_gene**: Ensamble Gene ID.  
   **known_gene**: Known Gene ID.  
