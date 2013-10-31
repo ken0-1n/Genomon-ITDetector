@@ -1,7 +1,7 @@
 Genomon-ITDetector
 ==================
 
-Genomon-ITDetector is a software package for detecting internal tandem duplication (ITD) from genome sequence data.
+Genomon-ITDetector is a software package for internal tandem duplication detection from cancer genome sequencing data.
 
 Dependecy
 ----------
