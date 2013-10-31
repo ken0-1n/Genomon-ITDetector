@@ -68,7 +68,7 @@ Just type the following command
 Result ("itd_list.tsv") is stored under the testout directory.
 
 
-create inhouse database
+Create inhouse database
 ---
 
 For filtering out polymorphism and artifacts that commonly occur among multiple samples
