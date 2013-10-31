@@ -55,7 +55,7 @@ The command for detecting ITDs
 
     $ bash detectITD.sh <path to the target bam file> <path to the output directory> <sample name>
 
-Then you will get the 'itd_list.tsv' under the specified output directory.
+Then you will get the "itd_list.tsv" under the specified output directory.
 
 
 Test run
@@ -65,7 +65,7 @@ Just type the following command
 
     $ bash detectITD.sh testdata/testin.bam testout testsample
 
-Result is stored under the testout directory.
+Result ("itd_list.tsv") is stored under the testout directory.
 
 
 create inhouse database
