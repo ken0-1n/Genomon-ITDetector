@@ -47,11 +47,11 @@ SetUp
 Usage
 ---
 
-the command for creating the annotation database
+The command for creating the annotation database
 
     $ bash createAnnoDB.sh
 
-the command for detecting ITDs
+The command for detecting ITDs
 
     $ bash detectITD.sh <path to the target bam file> <path to the output directory> <sample name>
 
@@ -68,17 +68,19 @@ Just type the following command
 Result is stored under the testout directory.
 
 
-How to use inhouse data
+create inhouse database
 ---
 
-Please open Genomon-ITDetector/inhouse/normal_inhouse_itd.list †,   
-and list the paths of "inhouse_itd.tsv" † files as follows:   
+For filtering out polymorphism and artifacts that commonly occur among multiple samples
 
-    $ /home/your_username/Genomon-ITDetector/testsample01/inhouse_itd.tsv
-    $ /home/your_username/Genomon-ITDetector/testsample02/inhouse_itd.tsv
-    $ /home/your_username/Genomon-ITDetector/testsample03/inhouse_itd.tsv
-    $ …
-    $ /home/your_username/Genomon-ITDetector/testsample50/inhouse_itd.tsv
+Please open Genomon-ITDetector/inhouse/normal_inhouse_itd.list †,   
+and list the paths of "inhouse_itd.tsv" † files as a set of control samples as follows:   
+
+    $ /home/your_username/Genomon-ITDetector/control_sample01/inhouse_itd.tsv
+    $ /home/your_username/Genomon-ITDetector/control_sample02/inhouse_itd.tsv
+    $ /home/your_username/Genomon-ITDetector/control_sample03/inhouse_itd.tsv
+    …
+    $ /home/your_username/Genomon-ITDetector/control_sample50/inhouse_itd.tsv
 
 † please do not change the file name.   
 † "inhouse_itd.tsv" is the file which contains the outputs obtained from detectITD.sh   
@@ -86,11 +88,11 @@ and list the paths of "inhouse_itd.tsv" † files as follows:
 Please open Genomon-ITDetector/inhouse/normal_inhouse_breakpoint.list †,   
 and list the paths of "inhouse_breakpoint.tsv" † files as follows:
 
-    $ /home/your_username/Genomon-ITDetector/testsample01/inhouse_breakpoint.tsv
-    $ /home/your_username/Genomon-ITDetector/testsample02/inhouse_breakpoint.tsv
-    $ /home/your_username/Genomon-ITDetector/testsample03/inhouse_breakpoint.tsv
-    $ …
-    $ /home/your_username/Genomon-ITDetector/testsample50/inhouse_breakpoint.tsv
+    $ /home/your_username/Genomon-ITDetector/control_sample01/inhouse_breakpoint.tsv
+    $ /home/your_username/Genomon-ITDetector/control_sample02/inhouse_breakpoint.tsv
+    $ /home/your_username/Genomon-ITDetector/control_sample03/inhouse_breakpoint.tsv
+    …
+    $ /home/your_username/Genomon-ITDetector/control_sample50/inhouse_breakpoint.tsv
 
 † please do not change the file name.   
 † "inhouse_breakpoint.tsv" is the file which contains the outputs obtained from detectITD.sh   
