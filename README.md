@@ -67,6 +67,33 @@ Just type the following command
 
 Result is stored under the testout directory.
 
+
+How to use inhouse data
+---
+
+Please open Genomon-ITDetector/inhouse/normal_inhouse_itd.list†,   
+and list the paths of "inhouse_itd.ts"† files as follows:   
+    $ /home/your_username/Genomon-ITDetector/testsample01/inhouse_itd.tsv
+    $ /home/your_username/Genomon-ITDetector/testsample02/inhouse_itd.tsv
+    $ /home/your_username/Genomon-ITDetector/testsample03/inhouse_itd.tsv
+    $ …
+    $ /home/your_username/Genomon-ITDetector/testsample50/inhouse_itd.tsv
+
+†1 please do not change the file name.   
+†2 "inhouse_itd.tsv" is the file which contains the outputs obtained from detectITD.sh   
+
+Please open Genomon-ITDetector/inhouse/normal_inhouse_breakpoint.list†,
+list the paths of "inhouse_breakpoint.tsv"† files:
+    $ /home/your_username/Genomon-ITDetector/testsample01/inhouse_breakpoint.tsv
+    $ /home/your_username/Genomon-ITDetector/testsample02/inhouse_breakpoint.tsv
+    $ /home/your_username/Genomon-ITDetector/testsample03/inhouse_breakpoint.tsv
+    $ …
+    $ /home/your_username/Genomon-ITDetector/testsample50/inhouse_breakpoint.tsv
+
+†1 please do not change the file name.   
+†2 "inhouse_breakpoint.tsv" is the file which contains the outputs obtained from detectITD.sh   
+
+
 Output
 ---
 
