@@ -20,7 +20,7 @@ while(<IN1>) {
     my $vals = $junc2Keys1{$key};
     my @valsArr = split(";", $vals);
     
-    next if ($#valsArr >= 20); 
+    next if (@valsArr >= 20); 
     my $check = 0;
     foreach my $val (@valsArr) {
       if ($val eq $sample) {
@@ -52,7 +52,7 @@ while(<IN2>) {
     my $vals = $junc2Keys2{$key};
     my @valsArr = split(";", $vals);
      
-    next if ($#valsArr >= 20); 
+    next if (@valsArr >= 20); 
     my $check = 0;
     foreach my $val (@valsArr) {
       if ($val eq $sample) {
@@ -82,7 +82,7 @@ while(<INL>) {
     $val = $junc2Keys2{$keyl} ."\t". $junc2Keys1{$keyl};
   }
   elsif (exists $junc2Keys2{$keyl}) {
-    $val = $junc2Keys2{$keyl} . "\t";
+    $val = $junc2Keys2{$keyl}. "\t";
   }
   elsif (exists $junc2Keys1{$keyl}) {
     $val = "\t". $junc2Keys1{$keyl};
@@ -93,3 +93,4 @@ while(<INL>) {
   print join("\t", @F[0 .. 31]) ."\t". $val ."\t". $F[32] ."\n";
 }
 close(INL);
+

@@ -20,7 +20,8 @@ while(<IN>) {
 
   my $key = $chr1 ."\t". $spos1 ."\t". $epos1 ."\t". $chr2 ."\t". $spos2 ."\t". $epos2;
 
-  $inhouse_keys{$key} = $sample_support;
+  $inhouse_keys{$key} = $inhouse_keys{$key} .";". $sample_support;
+
 }
 close(IN);
 
@@ -40,7 +41,12 @@ while(<IN>) {
   my $key = $chr1 ."\t". $spos1 ."\t". $epos1 ."\t". $chr2 ."\t". $spos2 ."\t". $epos2;
   if ( exists $inhouse_keys{$key}) {
     my $sample_support = $inhouse_keys{$key};
-    print $linekey1 ."\t". $linekey2 ."\t". $sample_support ."\n"; 
+    my @valsArr = split(";", $sample_support);
+    foreach my $val (@valsArr) {
+      if (length($val) > 0) { 
+        print $linekey1 ."\t". $linekey2 ."\t". $val ."\n";
+      }
+    }
   }
 }
 close(IN);
