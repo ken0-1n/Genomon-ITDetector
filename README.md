@@ -105,27 +105,92 @@ The results are formatted as TSV format.
 
 The followings are the information of the columns of the output file:   
 
+<table>
+<tr>
+<th>ITD_breakpoint_pair(ITD-BPP)_1</th>
+<td>The positions of ITD breakpoint pairs. Plus(+) and minus(-) indicate the right and left breakpoint.</td>  
+</tr>
+<tr>
+<th>supported_reads(strand+)<br>supported_reads(strand-)</th>
+<td>The ratio of the supported reads aligned to positive(negative) strand.</td>
+</tr>
+<tr>
+<th>ITD_breakpoint_pair(ITD-BPP)_2</th>
+<td>The positions of ITD breakpoint pairs. Plus(+) and minus(-) indicate the right and left breakpoint.</td>  
+</tr>
+<tr>
+<th>supported_reads(strand+)<br>supported_reads(strand-)</th>
+<td>The ratio of the supported reads aligned to positive(negative) strand.</td>
+</tr>
+<tr>
+<th>average_depth</th>
+<td>The average sequencing depths</td>    
+</tr>
+<tr>
+<th>chr(contig)<br>start_position(contig)<br>end_position(contig)</th>
+<td>The positions of assembled contig sequences.</td>
+</tr>
+<tr>
+<th>assembled_contig_sequence</th>
+<td>The contig sequences by assembling support reads and their mate pairs.</td>
+</tr>
+<tr>
+<th>length</th>
+<td>The lengths of assembled contig sequences.</td>   
+</tr>
+<tr>
+<th>chr(OIN)<br>start_position(OIN)<br>end_position(OIN)</th>
+<td>The position of OIN.</td>  
+</tr>
+<tr>
+<th>observed_inserted_nucleotide(OIN)</th>
+<td>Unmapped parts of contig sequences.</td>  
+</tr>
+<tr>
+<th>length(OIN)<br>length(PDN)</th>
+<td>The lengths of OIN and PDN.</td>   
+</tr>
+<tr>
+<th>selected_ITD-BPP</th>
+<td>The reliability of ITD-BPP (1 or 2). If the pairs of ITD-BPP are idential, '1,2' is outputed.</td>   
+</tr>
+<tr>
+<th>matched_bases / length(PDN)</th>
+<td>the number of matched bases between OIN and PDN / length of PDN.</td>   
+</tr>
+<tr>
+<th>length(OIN) / length(PDN)</th>
+<td>length of OIN / length of PDN.</td>   
+</tr>
+<tr>
+<th>matched_bases / length(OIN)</th>
+<td>the number of matched bases between OIN and PDN / length of OIN.</td>  
+</tr>
+<tr>
+<th>exon<br>intron<br>5putr<br>3putr<br>noncoding_exon<br>noncoding_intron</th>
+<td>RefSeq Gene Name and Gene ID annotation.</td>   
+</tr>
+<tr>
+<th>ens_gene</th>
+<td>Ensamble Gene ID annotation.</td>  
+</tr>
+<tr>
+<th>known_gene</th>
+<td>Known Gene ID annotation.</td>  
+</tr>
+<tr>
+<th>tandem_repeat</th>
+<td>Simple Repeat annotation.</td>  
+</tr>
+<tr>
+<th>inhouse<br>inhouse_left_breakpoint<br>inhouse_right_breakpoint</th>
+<td>The results of matching ITD to inhouse database.</td>       
+</tr>
+<tr>
+<th>grade</th>
+<td>grade (one of A, B and C)</td> 
+</tr>
 </table>
-  **ITD_breakpoint_pair(ITD-BPP)**: The positions of ITD breakpoint pairs. Plus(+) and minus(-) indicate the right and left breakpoint.  
-  **supported_reads(strand+)supported_reads(strand-)**: The ratio of the supported reads aligned to positive(negative) strand.   
-  **average_depth**: The average sequencing depths    
-  **chr(contig) start_position(contig) end_position(contig)**: The positions of assembled contig sequences.   
-  **assembled_contig_sequence**: The contig sequences by assembling support reads and their mate pairs.   
-  **length**: The lengths of assembled contig sequences.   
-  **chr(OIN) start_position(OIN) end_position(OIN)**: The position of OIN.  
-  **observed_inserted_nucleotide(OIN)**: Unmapped parts of contig sequences.  
-  **length(OIN) length(PDN)**: The lengths of OIN and PDN.   
-  **selected_ITD-BPP"**: The reliability of ITD-BPP (1 or 2). If the pairs of ITD-BPP are idential, '1,2' is outputed.   
-  **matched_bases / length(PDN)**: the number of matched bases between OIN and PDN / length of PDN.   
-  **length(OIN) / length(PDN)**: length of OIN / length of PDN.   
-  **matched_bases / length(OIN)**: the number of matched bases between OIN and PDN / length of OIN.  
-  **exon intron 5putr 3putr noncoding_exon noncoding_intron**: RefSeq Gene Name and Gene ID.   
-  **ens_gene**: Ensamble Gene ID.  
-  **known_gene**: Known Gene ID.  
-  **tandem_repeat**: Simple Repeat annotation.  
-  **inhouse inhouse_left_breakpoint inhouse_right_breakpoint**: The results of matching ITD to inhouse database.       
-  **grade**: grade (one of A, B and C) 
-
 
 Copyright
 ----------
