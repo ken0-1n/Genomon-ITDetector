@@ -30,11 +30,11 @@ SetUp
 4. create a 2bit hg19 human genome reference and a 11.ooc file for blat.  
   *change dir to the blat dir and create 2bit reference genome:   
 
-       $ ./faToTwoBit in.fa out.2bit
+       $ ./faToTwoBit hg19.fasta out.2bit
 
   *create 11.ooc file:   
          
-       $ ./blat -makeOoc=11.ooc -repMatch=2253 -tileSize=11 out.2bit test.fa test.psl  
+       $ ./blat -makeOoc=11.ooc -repMatch=2253 -tileSize=11 out.2bit temp.fa temp.psl  
 
 5. Open config.env and set each entry.  
 <table>
