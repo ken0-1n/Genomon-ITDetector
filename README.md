@@ -29,20 +29,47 @@ SetUp
 
 4. create a 2bit hg19 human genome reference and a 11.ooc file for blat.  
   *change dir to the blat dir and create 2bit reference genome:   
-  **$ ./faToTwoBit in.fa out.2bit**  
+
+       $ ./faToTwoBit in.fa out.2bit
+
   *create 11.ooc file:   
-  **$ ./blat -makeOoc=11.ooc -repMatch=2253 -tileSize=11 out.2bit test.fa test.psl**  
+         
+       $ ./blat -makeOoc=11.ooc -repMatch=2253 -tileSize=11 out.2bit test.fa test.psl  
 
 5. Open config.env and set each entry.  
-  **PATH_TO_HG19REF**: the path to the reference genome (.fasta) to which your sequence data is aligned.(we just test on the hg19 human genome reference from the UCSC site.)  
-  **PATH_TO_BLAT_REF**: the path to the 2bit hg19 human genome reference (.2bit) you created in the SetUp section 4.  
-  **PATH_TO_BLAT_OOC**: the path to the 11.ooc file you created in the SetUp section 4.  
-  **PATH_TO_BLAT**: the path to the blat executable  
-  **PATH_TO_BED_TOOLS**: the path to the BEDtools executable  
-  **PATH_TO_CAP3**: the path to the CAP3 executable  
-  **PATH_TO_FASTA**: the path to the fasta36 executable  
-  **PATH_TO_SAMTOOLS**: the path to the SAMtools executable  
-
+<table>
+<tr>
+<th>PATH_TO_HG19REF</th>
+<td>the path to the reference genome (.fasta) to which your sequence data is aligned.(we just test on the hg19 human genome reference from the UCSC site.)</td>  
+</tr>
+<tr>
+<th>PATH_TO_BLAT_REF</th>
+<td>the path to the 2bit hg19 human genome reference (.2bit) you created in the SetUp section 4.</td>  
+</tr>
+<tr>
+<th>PATH_TO_BLAT_OOC</th>
+<td>the path to the 11.ooc file you created in the SetUp section 4.</td>  
+</tr>
+<tr>
+<th>PATH_TO_BLAT</th>
+<td>the path to the blat executable</td>  
+</tr>
+<tr>
+<th>PATH_TO_BED_TOOLS</th>
+<td>the path to the BEDtools executable</td>  
+</tr>
+<tr>
+<th>PATH_TO_CAP3</th>
+<td>the path to the CAP3 executable</td>  
+</tr>
+<tr>
+<th>PATH_TO_FASTA</th>
+<td>the path to the fasta36 executable</td>  
+</tr>
+<tr>
+<th>PATH_TO_SAMTOOLS</th>
+<td>the path to the SAMtools executable</td>  
+</table>
 
 Usage
 ---
