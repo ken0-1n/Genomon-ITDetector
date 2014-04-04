@@ -3,11 +3,11 @@
 use strict;
 
 my $inputlist = $ARGV[0];
-my $input1bed = $ARGV[1];
-my $input2bed = $ARGV[2];
+my $input_left_bed = $ARGV[1];
+my $input_right_bed = $ARGV[2];
 
-my %junc2Keys1 = ();
-open(IN1, $input1bed) || die "cannot open $input1bed";
+my %junc2KeysLeft = ();
+open(IN1, $input_left_bed) || die "cannot open $input_left_bed";
 while(<IN1>) {
 
   s/[\r\n]//g;
@@ -16,30 +16,12 @@ while(<IN1>) {
   my $sample = $F[2];
   my $key = $F[0]."\t".$F[1];
     
-  if (exists $junc2Keys1{$key}) {
-    my $vals = $junc2Keys1{$key};
-    my @valsArr = split(";", $vals);
-    
-    next if (@valsArr >= 20); 
-    my $check = 0;
-    foreach my $val (@valsArr) {
-      if ($val eq $sample) {
-        $check = 1;
-        last;
-      }
-    }
-    if ( $check == 0){
-      $junc2Keys1{$key} = $vals .";".$sample;
-    }
-  }
-  else {
-    $junc2Keys1{$key} = $sample;
-  }
+  $junc2KeysLeft{$key} = $sample;
 } 
 close(IN1);
 
-my %junc2Keys2 = ();
-open(IN2, $input2bed) || die "cannot open $input2bed";
+my %junc2KeysRight = ();
+open(IN2, $input_right_bed) || die "cannot open $input_right_bed";
 while(<IN2>) {
 
   s/[\r\n]//g;
@@ -48,25 +30,7 @@ while(<IN2>) {
   my $sample = $F[2];
   my $key = $F[0]."\t".$F[1];
     
-  if (exists $junc2Keys2{$key}) {
-    my $vals = $junc2Keys2{$key};
-    my @valsArr = split(";", $vals);
-     
-    next if (@valsArr >= 20); 
-    my $check = 0;
-    foreach my $val (@valsArr) {
-      if ($val eq $sample) {
-        $check = 1;
-        last;
-      }
-    }
-    if ( $check == 0){
-      $junc2Keys2{$key} = $vals .";".$sample;
-    }
-  }
-  else {
-    $junc2Keys2{$key} = $sample;
-  }
+  $junc2KeysRight{$key} = $sample;
 } 
 close(IN2);
 
@@ -74,18 +38,17 @@ open(INL, $inputlist) || die "cannot open $inputlist";
 while(<INL>) {
   s/[\r\n]//g;
   my @F = split("\t", $_);
-  my $line = $_;
-  my $keyl = $F[0]."\t".$F[3];
+  my $key = $F[0]."\t".$F[3];
   my $val = "";
 
-  if (exists $junc2Keys1{$keyl} and exists $junc2Keys2{$keyl}) {
-    $val = $junc2Keys2{$keyl} ."\t". $junc2Keys1{$keyl};
+  if (exists $junc2KeysLeft{$key} and exists $junc2KeysRight{$key}) {
+    $val = $junc2KeysLeft{$key} ."\t". $junc2KeysRight{$key};
   }
-  elsif (exists $junc2Keys2{$keyl}) {
-    $val = $junc2Keys2{$keyl}. "\t";
+  elsif (exists $junc2KeysRight{$key}) {
+    $val = $junc2KeysLeft{$key}. "\t";
   }
-  elsif (exists $junc2Keys1{$keyl}) {
-    $val = "\t". $junc2Keys1{$keyl};
+  elsif (exists $junc2KeysLeft{$key}) {
+    $val = "\t". $junc2KeysRight{$key};
   }
   else {
     $val = "\t";

@@ -30,18 +30,21 @@ if [ ! -f $sRepeat ]; then
 fi
 
 perl db/coding_RefSeq.pl $refGene db/refGene.coding.exon.bed db/refGene.coding.intron.bed db/refGene.coding.5putr.bed db/refGene.coding.3putr.bed
-
 ${PATH_TO_BEDTOOLS}/mergeBed -i db/refGene.coding.exon.bed   -nms | ${PATH_TO_BEDTOOLS}/sortBed -i stdin > db/refGene.merged.coding.exon.bed
 ${PATH_TO_BEDTOOLS}/mergeBed -i db/refGene.coding.intron.bed -nms | ${PATH_TO_BEDTOOLS}/sortBed -i stdin > db/refGene.merged.coding.intron.bed
 ${PATH_TO_BEDTOOLS}/mergeBed -i db/refGene.coding.5putr.bed  -nms | ${PATH_TO_BEDTOOLS}/sortBed -i stdin > db/refGene.merged.coding.5putr.bed
 ${PATH_TO_BEDTOOLS}/mergeBed -i db/refGene.coding.3putr.bed  -nms | ${PATH_TO_BEDTOOLS}/sortBed -i stdin > db/refGene.merged.coding.3putr.bed
 
 perl db/noncoding_RefSeq.pl $refGene db/refGene.noncoding.exon.bed db/refGene.noncoding.intron.bed
-
 ${PATH_TO_BEDTOOLS}/mergeBed -i db/refGene.noncoding.exon.bed   -nms | ${PATH_TO_BEDTOOLS}/sortBed -i stdin > db/refGene.merged.noncoding.exon.bed
 ${PATH_TO_BEDTOOLS}/mergeBed -i db/refGene.noncoding.intron.bed -nms | ${PATH_TO_BEDTOOLS}/sortBed -i stdin > db/refGene.merged.noncoding.intron.bed
 
-perl db/known_gene_format_changer.pl $knownGene | ${PATH_TO_BEDTOOLS}/sortBed -i stdin > db/gene.known.sort.bed
-perl db/ens_gene_format_changer.pl   $ensGene   | ${PATH_TO_BEDTOOLS}/sortBed -i stdin > db/gene.ens.sort.bed
-perl db/s_repeat_format_changer.pl   $sRepeat   | ${PATH_TO_BEDTOOLS}/sortBed -i stdin > db/gene.repeat.sort.bed
+perl db/known_gene_format_changer.pl $knownGene > db/knownGene.bed
+${PATH_TO_BEDTOOLS}/mergeBed -i db/knownGene.bed -nms | ${PATH_TO_BEDTOOLS}/sortBed -i stdin > db/knownGene.merged.bed
+
+perl db/ens_gene_format_changer.pl   $ensGene   > db/ensGene.bed
+${PATH_TO_BEDTOOLS}/mergeBed -i db/ensGene.bed   -nms | ${PATH_TO_BEDTOOLS}/sortBed -i stdin > db/ensGene.merged.bed
+
+perl db/s_repeat_format_changer.pl   $sRepeat   > db/simpleRepeat.bed 
+${PATH_TO_BEDTOOLS}/mergeBed -i db/simpleRepeat.bed -nms | ${PATH_TO_BEDTOOLS}/sortBed -i stdin > db/simpleRepeat.merged.bed
 

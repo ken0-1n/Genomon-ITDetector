@@ -4,37 +4,42 @@ use strict;
 use warnings;
 
 my $input = $ARGV[0];
-my $mq_thres = $ARGV[1];
-my $sc_thres = $ARGV[2];
+my $sc_thres = $ARGV[1];
+my $ins_size_thres = $ARGV[2];
 
-open(IN, $input) || die "cannot open $!";
+open(IN, $input) || die "cannot open $input";
 while(<IN>) {
   s/[\r\n\"]//g;
   my @F = split("\t", $_);
 
-  next if ((not defined $F[5]) or (not defined $F[6]) or (not defined $F[8])); 
-  next if ($F[2] =~ /\*/ or $F[6] =~ /\*/);
+  my $chr   = $F[2];
+  my $cigar = $F[5];
+  my $chr_mate = $F[6];
+  my $ins_size = $F[8];
 
-  if ((-800 <= $F[8] and $F[8] <= 800) or (-800 >= $F[8] and $F[8] >= -800)) {
+  next if ((not defined $chr_mate) or (not defined $ins_size) or (not defined $ins_size_thres)); 
+  
+  next if ($chr =~ /\*/ or $chr_mate =~ /\*/);
+  next if ($ins_size_thres <= abs($ins_size));
+  
+  my $seq  = $F[9];
+  my $qual = $F[10];
 
-    if ($F[5] =~ /^(\d+)S/ and $F[4] >= $mq_thres) {
-      if ($1 >= $sc_thres) {
-        my $tseq = substr($F[9], 0, $1);
-        my $tqual = substr($F[10], 0, $1);
-        print ">" . join("~", @F[0 .. 8]) . "|" . $tseq . "|" . "+" . "|" . $tqual . "\n" . $tseq . "\n";
-      }    
-    }
+  if ($cigar =~ /^(\d+)S/ ) {
+    if ($1 >= $sc_thres) {
+      my $tseq  = substr($seq,  0, $1);
+      my $tqual = substr($qual, 0, $1);
+      print ">" . join("~", @F[0 .. 8]) . "|" . $tseq . "|" . "+" . "|" . $tqual . "\n" . $tseq . "\n";
+    }    
+  }
 
-    if ($F[5] =~ /(\d+)S$/ and $F[4] >= $mq_thres) {
-      if ($1 >= $sc_thres) {
-        my $tseq = substr($F[9], -$1);
-        my $tqual = substr($F[10], -$1);
-        print ">" . join("~", @F[0 .. 8]) . "|" . $tseq . "|" . "+" . "|" . $tqual . "\n" . $tseq . "\n";
-      }
+  if ($cigar =~ /(\d+)S$/ ) {
+    if ($1 >= $sc_thres) {
+      my $tseq  = substr($seq,  -$1);
+      my $tqual = substr($qual, -$1);
+      print ">" . join("~", @F[0 .. 8]) . "|" . $tseq . "|" . "+" . "|" . $tqual . "\n" . $tseq . "\n";
     }
   }
 }
 close(IN);
         
-         
-

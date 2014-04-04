@@ -14,22 +14,22 @@ while(<INL>) {
     s/[\r\n\"]//g;
     my @F = split("\t", $_);
     my $key = $F[0]."\t".$F[3];
-    my $itdselect = $F[18];
+    my $PDN_select = $F[18];
       
     my $chr = "";
     my $spos = 0;
     my $epos = 0;
 
-    if ($itdselect == 1) { 
+    if ($PDN_select eq "PDN1") { 
       $F[0] =~ /(\w+):([\+\-])(\d+)-(\w+):([\+\-])(\d+)/;
       $chr = $1;
-      $spos = $6 - 1;
+      $spos = $6;
       $epos = $3;
     }
     else {
       $F[3] =~ /(\w+):([\+\-])(\d+)-(\w+):([\+\-])(\d+)/;
       $chr = $1;
-      $spos = $3 - 1;
+      $spos = $3;
       $epos = $6;
     }
     

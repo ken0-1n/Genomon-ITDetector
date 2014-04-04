@@ -3,9 +3,9 @@
 use strict;
 use warnings;
 
-my $input1 = $ARGV[0];
-my $input2 = $ARGV[1];
-my $ad_range = $ARGV[2];
+my $input = $ARGV[0];
+my $thres_ambiguity_range = $ARGV[1];
+my $thres_support_reads = $ARGV[2];
 
 sub getJuncKeys {
   my $filename = $_[0];
@@ -24,41 +24,42 @@ sub getJuncKeys {
     my $num22 = $F[12];
     my $idseq2 = $F[13];
 
+    if((not defined $num11) or (not defined $num12) or (not defined $num21) or (not defined $num22)) {
+      print STDERR "not defined error: num11 num12 num21 num22 \n";
+      exit 1;
+    }
+
     $F[3] =~ /(\w+):([\+\-])(\d+)\-(\w+):([\+\-])(\d+)\((\w*)\)/;
     my $chr11 = $1;
-    my $strand11 = $2 eq "+" ? 1 : -1;
     my $pos11 = $3;
     my $chr12 = $4;
-    my $strand12 = $5 eq "+" ? 1 : -1;
     my $pos12 = $6;
-    my $clip1 = $7;
 
     $F[10] =~ /(\w+):([\+\-])(\d+)\-(\w+):([\+\-])(\d+)\((\w*)\)/;
     my $chr21 = $1;
-    my $strand21 = $2 eq "+" ? 1 : -1;
     my $pos21 = $3;
     my $chr22 = $4;
-    my $strand22 = $5 eq "+" ? 1 : -1;
     my $pos22 = $6;
-    my $clip2 = $7;
 
-    if (abs($pos11 - $pos22) <= 10 and abs($pos21 - $pos12) <= 10) {
-      my $val1 = $F[3] ."\t". $num11 ."\t". $num12;
-      my $val2 = $F[10] ."\t". $num21 ."\t". $num22;
-      my $val = $val1 ."\t". $val2;
-      $junc2Keys{join("\t", sort ($val1, $val2))} = $idseq1 ."\t". $idseq2 ."\t". $ad_range;
-    }
+
+    my $support_read_pdn1 = ($num11 + $num12);
+    my $support_read_pdn2 = ($num21 + $num22);
+    next if ($support_read_pdn1 < $thres_support_reads and $support_read_pdn2 < $thres_support_reads);
+  
+    next if (abs($pos11 - $pos22) > $thres_ambiguity_range or abs($pos12 - $pos21) > $thres_ambiguity_range);
+   
+    my $val1 = $F[3]  ."\t". $num11 ."\t". $num12;
+    my $val2 = $F[10] ."\t". $num21 ."\t". $num22;
+    $junc2Keys{join("\t", sort ($val1, $val2))} = $idseq1 ."\t". $idseq2;
+
   }
   close(IN);
   return %junc2Keys;
 }
 
-my %junc2Keys1 = &getJuncKeys($input1);
-my %junc2Keys2 = &getJuncKeys($input2);
+my %junc2Keys = &getJuncKeys($input);
 
-foreach my $key (sort keys %junc2Keys1) {
-    if ( exists($junc2Keys2{$key}) ) {
-      print $key ."\t". $junc2Keys2{$key} ."\n";
-    }
+foreach my $key (sort keys %junc2Keys) {
+  print $key ."\t". $junc2Keys{$key} ."\n";
 }
 

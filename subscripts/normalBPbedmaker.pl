@@ -1,7 +1,6 @@
 #! /usr/local/bin/perl
 
 use strict;
-use warnings;
 
 my $input_list = $ARGV[0];
 my $output1_bed = $ARGV[1];
@@ -21,22 +20,19 @@ while(<INL>) {
       s/[\r\n\"]//g;
       my @F = split("\t", $_);
 
-      my $chr1 = $F[0];
-      my $spos1 = $F[1];
-      my $epos1 = $F[2];
-      my $chr2 = $F[3];
-      my $spos2 = $F[4];
-      my $epos2 = $F[5];
-      my $sample = $F[6];
-      my $supportReads = $F[7];
-      my $left_or_right = $F[8];
+      my $chr  = $F[0];
+      my $pos1 = $F[1];
+      my $pos2 = $F[2];
+      my $sample = $F[3];
+      my $supportReads = $F[4];
+      my $left_or_right = $F[5];
      
       if ($sample ne $sample_args) { 
         if ($left_or_right eq "left") {
-          print OUT1 $chr1 ."\t". $spos1 ."\t". $epos1 ."\t". $chr2 ."\t". $spos2 ."\t". $epos2 ."\t". $sample.$supportReads ."\n";
+          print OUT1 $chr ."\t". $pos1 ."\t". $pos2 ."\t". $sample.$supportReads ."\n";
         }
         elsif ($left_or_right eq "right") {
-          print OUT2 $chr1 ."\t". $spos1 ."\t". $epos1 ."\t". $chr2 ."\t". $spos2 ."\t". $epos2 ."\t". $sample.$supportReads ."\n";
+          print OUT2 $chr ."\t". $pos1 ."\t". $pos2 ."\t". $sample.$supportReads ."\n";
         }
       }
     }

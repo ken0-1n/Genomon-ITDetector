@@ -5,7 +5,6 @@ use warnings;
 use List::Util qw(max);
 
 my $input = $ARGV[0];
-my $target_dir = $ARGV[1];
 
 my %hash;
 open(IN, $input) || die "cannot open $!";

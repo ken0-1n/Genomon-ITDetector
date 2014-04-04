@@ -118,11 +118,13 @@ while(<IN>) {
   $F[0] =~ /(\w+):([\+\-])(\d+)-(\w+):([\+\-])(\d+)/;
   my $chr1 = $1;
   my $pos11 = $3;
-  my $pos12 = $6 - 1;
+  my $pos12 = $6;
+  # my $pos12 = $6 - 1;
     
   $F[3] =~ /(\w+):([\+\-])(\d+)-(\w+):([\+\-])(\d+)/;
   my $chr2 = $1;
-  my $pos21 = $3 - 1;
+  # my $pos21 = $3 - 1;
+  my $pos21 = $3;
   my $pos22 = $6;
      
   my @pos1Array = ($pos11,$pos22);
@@ -135,7 +137,7 @@ while(<IN>) {
   foreach my $ref_ce_key (keys(%ref_ce_hash)) {
     my @ref_ce_keys = split("\t", $ref_ce_key);
     if(($ref_ce_keys[0] eq $chr) and
-      (($ref_ce_keys[1] <= $start and $start <= $ref_ce_keys[2]) or ($ref_ce_keys[1] <= $end and $end <= $ref_ce_keys[2]))) {
+      (($ref_ce_keys[1] <= $start and $start <= $ref_ce_keys[2]) or ($ref_ce_keys[1] <= $end and $end <= $ref_ce_keys[2]) or ($start <= $ref_ce_keys[1] and $ref_ce_keys[2] <= $end))) {
       $ref_ce_val = $ref_ce_val.";".$ref_ce_hash{$ref_ce_key};
     }
   }
@@ -146,7 +148,7 @@ while(<IN>) {
   foreach my $ref_ci_key (keys(%ref_ci_hash)) {
     my @ref_ci_keys = split("\t", $ref_ci_key);
     if(($ref_ci_keys[0] eq $chr) and
-      (($ref_ci_keys[1] <= $start and $start <= $ref_ci_keys[2]) or ($ref_ci_keys[1] <= $end and $end <= $ref_ci_keys[2]))) {
+      (($ref_ci_keys[1] <= $start and $start <= $ref_ci_keys[2]) or ($ref_ci_keys[1] <= $end and $end <= $ref_ci_keys[2]) or ($start <= $ref_ci_keys[1] and $ref_ci_keys[2] <= $end))) {
       $ref_ci_val = $ref_ci_val.";".$ref_ci_hash{$ref_ci_key};
     }
   }
@@ -157,7 +159,7 @@ while(<IN>) {
   foreach my $ref_c5_key (keys(%ref_c5_hash)) {
     my @ref_c5_keys = split("\t", $ref_c5_key);
     if(($ref_c5_keys[0] eq $chr) and
-      (($ref_c5_keys[1] <= $start and $start <= $ref_c5_keys[2]) or ($ref_c5_keys[1] <= $end and $end <= $ref_c5_keys[2]))) {
+      (($ref_c5_keys[1] <= $start and $start <= $ref_c5_keys[2]) or ($ref_c5_keys[1] <= $end and $end <= $ref_c5_keys[2]) or ($start <= $ref_c5_keys[1] and $ref_c5_keys[2] <= $end))) {
       $ref_c5_val = $ref_c5_val.";".$ref_c5_hash{$ref_c5_key};
     }
   }
@@ -168,7 +170,7 @@ while(<IN>) {
   foreach my $ref_c3_key (keys(%ref_c3_hash)) {
     my @ref_c3_keys = split("\t", $ref_c3_key);
     if(($ref_c3_keys[0] eq $chr) and
-      (($ref_c3_keys[1] <= $start and $start <= $ref_c3_keys[2]) or ($ref_c3_keys[1] <= $end and $end <= $ref_c3_keys[2]))) {
+      (($ref_c3_keys[1] <= $start and $start <= $ref_c3_keys[2]) or ($ref_c3_keys[1] <= $end and $end <= $ref_c3_keys[2]) or ($start <= $ref_c3_keys[1] and $ref_c3_keys[2] <= $end))) {
       $ref_c3_val = $ref_c3_val.";".$ref_c3_hash{$ref_c3_key};
     }
   }
@@ -179,7 +181,7 @@ while(<IN>) {
   foreach my $ref_ne_key (keys(%ref_ne_hash)) {
     my @ref_ne_keys = split("\t", $ref_ne_key);
     if(($ref_ne_keys[0] eq $chr) and
-      (($ref_ne_keys[1] <= $start and $start <= $ref_ne_keys[2]) or ($ref_ne_keys[1] <= $end and $end <= $ref_ne_keys[2]))) {
+      (($ref_ne_keys[1] <= $start and $start <= $ref_ne_keys[2]) or ($ref_ne_keys[1] <= $end and $end <= $ref_ne_keys[2]) or ($start <= $ref_ne_keys[1] and $ref_ne_keys[2] <= $end))) {
       $ref_ne_val = $ref_ne_val.";".$ref_ne_hash{$ref_ne_key};
     }
   }
@@ -190,7 +192,7 @@ while(<IN>) {
   foreach my $ref_ni_key (keys(%ref_ni_hash)) {
     my @ref_ni_keys = split("\t", $ref_ni_key);
     if(($ref_ni_keys[0] eq $chr) and
-      (($ref_ni_keys[1] <= $start and $start <= $ref_ni_keys[2]) or ($ref_ni_keys[1] <= $end and $end <= $ref_ni_keys[2]))) {
+      (($ref_ni_keys[1] <= $start and $start <= $ref_ni_keys[2]) or ($ref_ni_keys[1] <= $end and $end <= $ref_ni_keys[2]) or ($start <= $ref_ni_keys[1] and $ref_ni_keys[2] <= $end))) {
       $ref_ni_val = $ref_ni_val.";".$ref_ni_hash{$ref_ni_key};
     }
   }
@@ -201,7 +203,7 @@ while(<IN>) {
   foreach my $enskey (keys(%enshash)) {
     my @enskeys = split("\t", $enskey);
     if(($enskeys[0] eq $chr) and
-      (($enskeys[1] <= $start and $start <= $enskeys[2]) or ($enskeys[1] <= $end and $end <= $enskeys[2]))) {
+      (($enskeys[1] <= $start and $start <= $enskeys[2]) or ($enskeys[1] <= $end and $end <= $enskeys[2]) or ($start <= $enskeys[1] and $enskeys[2] <= $end))) {
       $ensval = $ensval.";".$enshash{$enskey};
     }
   }
@@ -212,7 +214,7 @@ while(<IN>) {
   foreach my $knownkey (keys(%knownhash)) {
     my @knownkeys = split("\t", $knownkey);
     if (($knownkeys[0] eq $chr) and
-       (($knownkeys[1] <= $start and $start <= $knownkeys[2]) or ($knownkeys[1] <= $end and $end <= $knownkeys[2]))) {
+       (($knownkeys[1] <= $start and $start <= $knownkeys[2]) or ($knownkeys[1] <= $end and $end <= $knownkeys[2]) or ($start <= $knownkeys[1] and $knownkeys[2] <= $end))) {
       $knownval = $knownval.";".$knownhash{$knownkey};
     }
   }
@@ -223,7 +225,7 @@ while(<IN>) {
   foreach my $repeatkey (keys(%repeathash)) {
     my @repeatkeys = split("\t", $repeatkey);
     if(($repeatkeys[0] eq $chr) and
-      (($repeatkeys[1] <= $start and $start <= $repeatkeys[2]) or ($repeatkeys[1] <= $end and $end <= $repeatkeys[2]))) {
+      (($repeatkeys[1] <= $start and $start <= $repeatkeys[2]) or ($repeatkeys[1] <= $end and $end <= $repeatkeys[2]) or ($start <= $repeatkeys[1] and $repeatkeys[2] <= $end))) {
       $repeatval = $repeatval.";".$repeathash{$repeatkey};
     }
   }

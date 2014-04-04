@@ -6,8 +6,8 @@ use warnings;
 my $input_psl = $ARGV[0];
 my $output_juncCount = $ARGV[1];
 my $output_juncID = $ARGV[2];
-my $multiThres = 400; # if the read is mapped to more than this parameter value then skip this read
-my $juncInsertionThres = 10; # ignore junction where more than this parameter of inserted bases
+my $multiThres = $ARGV[3]; # if the read is mapped to more than this parameter value then skip this read
+my $juncInsertionThres = $ARGV[4]; # ignore junction where more than this parameter of inserted bases
 
 
 my %junc2count = ();

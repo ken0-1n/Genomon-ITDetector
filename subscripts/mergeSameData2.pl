@@ -5,7 +5,6 @@ use warnings;
 use List::Util qw(max);
 
 my $input = $ARGV[0];
-my $target_dir = $ARGV[1];
 
 my %hash;
 open(IN, $input) || die "cannot open $!";
@@ -16,7 +15,6 @@ while(<IN>) {
   my $junc1 = $F[0];
   my $junc2 = $F[3];
   my $line = $_;
-  # my $sclipNum = $F[3] ."\t". ($F[4] + $F[5]);
     
   if (not exists $hash{$junc2}) {
     my @array;
