@@ -27,7 +27,6 @@ SetUp
 
 3. Download the refGene.txt, knownGene.txt, ensGene.txt and simpleRepeat.txt files from **the UCSC site** and place them under the Genomon-ITDetector-master/db directory, and then unpack them.  
 
-<<<<<<< HEAD
 4. create a 11.ooc file and a 2bit hg19 human genome reference for blat.  
   change dir to the blat dir and create 2bit reference genome.  
   **$ ./faToTwoBit in.fa out.2bit**  
@@ -44,51 +43,6 @@ SetUp
   **PATH_TO_FASTA**: the path to the fasta36 executable  
   **PATH_TO_SAMTOOLS**: the path to the SAMtools executable  
 
-=======
-4. create a 2bit hg19 human genome reference and a 11.ooc file for blat.  
-  *change dir to the blat dir and create 2bit reference genome:   
-
-       $ ./faToTwoBit hg19.fasta out.2bit
-
-  *create 11.ooc file:   
-         
-       $ ./blat -makeOoc=11.ooc -repMatch=2253 -tileSize=11 out.2bit temp.fa temp.psl  
-
-5. Open config.env and set each entry.  
-<table>
-<tr>
-<th>PATH_TO_HG19REF</th>
-<td>the path to the reference genome (.fasta) to which your sequence data is aligned.(we just test on the hg19 human genome reference from the UCSC site.)</td>  
-</tr>
-<tr>
-<th>PATH_TO_BLAT_REF</th>
-<td>the path to the 2bit hg19 human genome reference (.2bit) you created in the SetUp section 4.</td>  
-</tr>
-<tr>
-<th>PATH_TO_BLAT_OOC</th>
-<td>the path to the 11.ooc file you created in the SetUp section 4.</td>  
-</tr>
-<tr>
-<th>PATH_TO_BLAT</th>
-<td>the path to the blat executable</td>  
-</tr>
-<tr>
-<th>PATH_TO_BED_TOOLS</th>
-<td>the path to the BEDtools executable</td>  
-</tr>
-<tr>
-<th>PATH_TO_CAP3</th>
-<td>the path to the CAP3 executable</td>  
-</tr>
-<tr>
-<th>PATH_TO_FASTA</th>
-<td>the path to the fasta36 executable</td>  
-</tr>
-<tr>
-<th>PATH_TO_SAMTOOLS</th>
-<td>the path to the SAMtools executable</td>  
-</table>
->>>>>>> 07fce0e20ec1ad93c548155a3ecbdc9feae12549
 
 How to run
 ---
@@ -115,7 +69,6 @@ Just type the following command
 Output
 ---
 
-<<<<<<< HEAD
 The columns are exaplined below:   
   **ITD_breakpoint_pair(ITD-BPP)**:   
   **supported_reads(strand+)supported_reads(strand-)**:   
@@ -139,98 +92,6 @@ The columns are exaplined below:
   **inhouse_right_breakpoint**:   
   **grade**:   
 
-=======
-The results are formatted as TSV format.
-
-The followings are the information of the columns of the output file:   
-
-<table>
-<tr>
-<th>ITD_breakpoint_pair(ITD-BPP)_1</th>
-<td>The positions of ITD breakpoint pairs. Plus(+) and minus(-) indicate the right and left breakpoint.</td>  
-</tr>
-<tr>
-<th>supported_reads(strand+)<br>supported_reads(strand-)</th>
-<td>The ratio of the supported reads aligned to positive(negative) strand.</td>
-</tr>
-<tr>
-<th>ITD_breakpoint_pair(ITD-BPP)_2</th>
-<td>The positions of ITD breakpoint pairs. Plus(+) and minus(-) indicate the right and left breakpoint.</td>  
-</tr>
-<tr>
-<th>supported_reads(strand+)<br>supported_reads(strand-)</th>
-<td>The ratio of the supported reads aligned to positive(negative) strand.</td>
-</tr>
-<tr>
-<th>average_depth</th>
-<td>The average sequencing depths</td>    
-</tr>
-<tr>
-<th>chr(contig)<br>start_position(contig)<br>end_position(contig)</th>
-<td>The positions of assembled contig sequences.</td>
-</tr>
-<tr>
-<th>assembled_contig_sequence</th>
-<td>The contig sequences by assembling support reads and their mate pairs.</td>
-</tr>
-<tr>
-<th>length</th>
-<td>The lengths of assembled contig sequences.</td>   
-</tr>
-<tr>
-<th>chr(OIN)<br>start_position(OIN)<br>end_position(OIN)</th>
-<td>The position of OIN.</td>  
-</tr>
-<tr>
-<th>observed_inserted_nucleotide(OIN)</th>
-<td>Unmapped parts of contig sequences.</td>  
-</tr>
-<tr>
-<th>length(OIN)<br>length(PDN)</th>
-<td>The lengths of OIN and PDN.</td>   
-</tr>
-<tr>
-<th>selected_ITD-BPP</th>
-<td>The reliability of ITD-BPP (1 or 2). If the pairs of ITD-BPP are idential, '1,2' is outputed.</td>   
-</tr>
-<tr>
-<th>matched_bases / length(PDN)</th>
-<td>the number of matched bases between OIN and PDN / length of PDN.</td>   
-</tr>
-<tr>
-<th>length(OIN) / length(PDN)</th>
-<td>length of OIN / length of PDN.</td>   
-</tr>
-<tr>
-<th>matched_bases / length(OIN)</th>
-<td>the number of matched bases between OIN and PDN / length of OIN.</td>  
-</tr>
-<tr>
-<th>exon<br>intron<br>5putr<br>3putr<br>noncoding_exon<br>noncoding_intron</th>
-<td>RefSeq Gene Name and Gene ID annotation.</td>   
-</tr>
-<tr>
-<th>ens_gene</th>
-<td>Ensamble Gene ID annotation.</td>  
-</tr>
-<tr>
-<th>known_gene</th>
-<td>Known Gene ID annotation.</td>  
-</tr>
-<tr>
-<th>tandem_repeat</th>
-<td>Simple Repeat annotation.</td>  
-</tr>
-<tr>
-<th>inhouse<br>inhouse_left_breakpoint<br>inhouse_right_breakpoint</th>
-<td>The results of matching ITD to inhouse database.</td>       
-</tr>
-<tr>
-<th>grade</th>
-<td>grade (one of A, B and C)</td> 
-</tr>
-</table>
->>>>>>> 07fce0e20ec1ad93c548155a3ecbdc9feae12549
 
 Copyright
 ----------
