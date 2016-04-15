@@ -279,30 +279,33 @@ if [ $only_annotation -eq 0 ]; then
     
     if [ "${oin-UNDEF}" != "UNDEF" ]; then
       if [ "${oin}" != "" ]; then
-        echo '>'PDN1 > ${TRDIR}/tmp/temp.fasta36.pdn.fa
-        check_error $?
-        echo $pdn1 >> ${TRDIR}/tmp/temp.fasta36.pdn.fa 
-        check_error $?
-        echo '>'PDN2 >> ${TRDIR}/tmp/temp.fasta36.pdn.fa 
-        check_error $?
-        echo $pdn2 >> ${TRDIR}/tmp/temp.fasta36.pdn.fa 
-        check_error $?
-        echo '>'OIN > ${TRDIR}/tmp/temp.fasta36.oin.fa 
-        check_error $?
-        echo $oin >> ${TRDIR}/tmp/temp.fasta36.oin.fa
-        check_error $?
+        match_str=`echo $oin | awk '{match($0, /[ACGTacgt]/); print substr($0, RSTART, RLENGTH) }'`
+        if [ "_${match_str}" != "_" ];then
+            echo '>'PDN1 > ${TRDIR}/tmp/temp.fasta36.pdn.fa
+            check_error $?
+            echo $pdn1 >> ${TRDIR}/tmp/temp.fasta36.pdn.fa 
+            check_error $?
+            echo '>'PDN2 >> ${TRDIR}/tmp/temp.fasta36.pdn.fa 
+            check_error $?
+            echo $pdn2 >> ${TRDIR}/tmp/temp.fasta36.pdn.fa 
+            check_error $?
+            echo '>'OIN > ${TRDIR}/tmp/temp.fasta36.oin.fa 
+            check_error $?
+            echo $oin >> ${TRDIR}/tmp/temp.fasta36.oin.fa
+            check_error $?
 
-        #
-        echo "${PATH_TO_FASTA}/fasta36 -d 1 -m 8 -b 1 ${TRDIR}/tmp/temp.fasta36.oin.fa ${TRDIR}/tmp/temp.fasta36.pdn.fa > ${TRDIR}/tmp/temp.fasta36.oin.fastaTabular"
-        ${PATH_TO_FASTA}/fasta36 -d 1 -m 8 -b 1 ${TRDIR}/tmp/temp.fasta36.oin.fa ${TRDIR}/tmp/temp.fasta36.pdn.fa > ${TRDIR}/tmp/temp.fasta36.oin.fastaTabular
-        check_error $?
-        #
-        echo "alignmentScore=perl ${SCRIPTDIR}/getAlignmentScore.pl ${TRDIR}/tmp/temp.fasta36.oin.fastaTabular"
-        alignmentScore=`perl ${SCRIPTDIR}/getAlignmentScore.pl ${TRDIR}/tmp/temp.fasta36.oin.fastaTabular`
-        check_error $?
-        #
-        echo -e "${line}\t${alignmentScore}" >> ${TRDIR}/tmp/juncListitd13.txt
-        check_error $?
+            #
+            echo "${PATH_TO_FASTA}/fasta36 -d 1 -m 8 -b 1 ${TRDIR}/tmp/temp.fasta36.oin.fa ${TRDIR}/tmp/temp.fasta36.pdn.fa > ${TRDIR}/tmp/temp.fasta36.oin.fastaTabular"
+            ${PATH_TO_FASTA}/fasta36 -d 1 -m 8 -b 1 ${TRDIR}/tmp/temp.fasta36.oin.fa ${TRDIR}/tmp/temp.fasta36.pdn.fa > ${TRDIR}/tmp/temp.fasta36.oin.fastaTabular
+            check_error $?
+            #
+            echo "alignmentScore=perl ${SCRIPTDIR}/getAlignmentScore.pl ${TRDIR}/tmp/temp.fasta36.oin.fastaTabular"
+            alignmentScore=`perl ${SCRIPTDIR}/getAlignmentScore.pl ${TRDIR}/tmp/temp.fasta36.oin.fastaTabular`
+            check_error $?
+            #
+            echo -e "${line}\t${alignmentScore}" >> ${TRDIR}/tmp/juncListitd13.txt
+            check_error $?
+        fi
       fi
     fi
   done < ${TRDIR}/tmp/juncListitd12.txt
