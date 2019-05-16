@@ -29,3 +29,10 @@ check_file_exists()
   exit 1
 }
 
+rm_file()
+{
+  if [ -f $1 ]; then
+    rm $1
+  fi
+}
+

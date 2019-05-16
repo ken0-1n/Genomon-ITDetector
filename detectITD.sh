@@ -88,65 +88,54 @@ if [ $only_annotation -eq 0 ]; then
 
 # : <<'#__COMMENT_OUT__'
   # 
-  echo "${PATH_TO_SAMTOOLS}/samtools view -h -F $SAM_FILTERING_FLAG -q $THRES_MAP_QUALITY $INPUTBAM > ${TRDIR}/tmp/temp.input.sam"
   ${PATH_TO_SAMTOOLS}/samtools view -h -F $SAM_FILTERING_FLAG -q $THRES_MAP_QUALITY $INPUTBAM > ${TRDIR}/tmp/temp.input.sam
   check_error $?
   #
-  echo "perl ${SCRIPTDIR}/getCandJunc.pl ${TRDIR}/tmp/temp.input.sam $THRES_SOFT_CLIPPED_LENGTH $THRES_INSERTION_SIZE > ${TRDIR}/tmp/candJunc.fa"
   perl ${SCRIPTDIR}/getCandJunc.pl ${TRDIR}/tmp/temp.input.sam $THRES_SOFT_CLIPPED_LENGTH $THRES_INSERTION_SIZE > ${TRDIR}/tmp/candJunc.fa
   check_error $?
   #
-  echo "${PATH_TO_BLAT}/blat -stepSize=5 -repMatch=2253 -minScore=20 -ooc=${PATH_TO_BLAT_OOC} $PATH_TO_BLAT_REF ${TRDIR}/tmp/candJunc.fa ${TRDIR}/tmp/candJunc.psl"
   ${PATH_TO_BLAT}/blat -stepSize=5 -repMatch=2253 -minScore=20 -ooc=${PATH_TO_BLAT_OOC} $PATH_TO_BLAT_REF ${TRDIR}/tmp/candJunc.fa ${TRDIR}/tmp/candJunc.psl
   check_error $?
   #
-  echo "perl ${SCRIPTDIR}/psl2junction2.pl ${TRDIR}/tmp/candJunc.psl ${TRDIR}/tmp/candJunc.txt ${TRDIR}/tmp/junc2ID.txt $THRES_MALTI_MAPPED $THRES_JUNC_INSERTION"
   perl ${SCRIPTDIR}/psl2junction2.pl ${TRDIR}/tmp/candJunc.psl ${TRDIR}/tmp/candJunc.txt ${TRDIR}/tmp/junc2ID.txt $THRES_MALTI_MAPPED $THRES_JUNC_INSERTION
   check_error $?
   #
-  echo "perl ${SCRIPTDIR}/makeBeds2.pl ${TRDIR}/tmp/candJunc.txt ${TRDIR}/tmp/cj1.bed ${TRDIR}/tmp/cj2.bed $THRES_MIN_ITD_LENGTH $THRES_MAX_ITD_LENGTH"
   perl ${SCRIPTDIR}/makeBeds2.pl ${TRDIR}/tmp/candJunc.txt ${TRDIR}/tmp/cj1.bed ${TRDIR}/tmp/cj2.bed $THRES_MIN_ITD_LENGTH $THRES_MAX_ITD_LENGTH
   check_error $?
 
   if [ -s ${TRDIR}/tmp/cj2.bed ]; then
     #
-    echo "${PATH_TO_BEDTOOLS}/intersectBed -a ${TRDIR}/tmp/cj1.bed -b ${TRDIR}/tmp/cj2.bed -wb > ${TRDIR}/tmp/candJunc.inter.txt"
     ${PATH_TO_BEDTOOLS}/intersectBed -a ${TRDIR}/tmp/cj1.bed -b ${TRDIR}/tmp/cj2.bed -wb > ${TRDIR}/tmp/candJunc.inter.txt
     check_error $?
   else
-    /bin/echo -n > ${TRDIR}/tmp/candJunc.inter1_0.txt
+    /bin/echo -n > ${TRDIR}/tmp/candJunc.inter.txt
     check_error $?
   fi
   #
-  echo "perl ${SCRIPTDIR}/mergeJunc22.pl ${TRDIR}/tmp/candJunc.inter.txt $THRES_AMBIGUITY_RANGE $MIN_SUPPORT_READS > ${TRDIR}/tmp/juncList12.txt"
   perl ${SCRIPTDIR}/mergeJunc22.pl ${TRDIR}/tmp/candJunc.inter.txt $THRES_AMBIGUITY_RANGE $MIN_SUPPORT_READS > ${TRDIR}/tmp/juncList12.txt
   check_error $?
   #
-  echo "perl ${SCRIPTDIR}/mergeSameData.pl ${TRDIR}/tmp/juncList12.txt > ${TRDIR}/tmp/juncList12.txt.merge1"
   perl ${SCRIPTDIR}/mergeSameData.pl ${TRDIR}/tmp/juncList12.txt > ${TRDIR}/tmp/juncList12.txt.merge1
   check_error $?
   #
-  echo "perl ${SCRIPTDIR}/mergeSameData2.pl ${TRDIR}/tmp/juncList12.txt.merge1 > ${TRDIR}/tmp/juncList12.txt.merge2"
   perl ${SCRIPTDIR}/mergeSameData2.pl ${TRDIR}/tmp/juncList12.txt.merge1 > ${TRDIR}/tmp/juncList12.txt.merge2
   check_error $?
   #
-  echo "perl ${SCRIPTDIR}/makeTargetIdSam.pl ${TRDIR}/tmp/juncList12.txt.merge2 ${TRDIR}/tmp/temp.input.sam > ${TRDIR}/tmp/targetId.sam"
   perl ${SCRIPTDIR}/makeTargetIdSam.pl ${TRDIR}/tmp/juncList12.txt.merge2 ${TRDIR}/tmp/temp.input.sam > ${TRDIR}/tmp/targetId.sam
   check_error $?
   #
-  echo "perl ${SCRIPTDIR}/makeJunctionBed2.pl ${TRDIR}/tmp/candJunc.txt $SAMPLE_NAME $THRES_MIN_ITD_LENGTH $THRES_MAX_ITD_LENGTH > ${TRDIR}/inhouse_breakpoint.tsv"
   perl ${SCRIPTDIR}/makeJunctionBed2.pl ${TRDIR}/tmp/candJunc.txt $SAMPLE_NAME $THRES_MIN_ITD_LENGTH $THRES_MAX_ITD_LENGTH > ${TRDIR}/inhouse_breakpoint.tsv
   check_error $?
 
-  rm ${TRDIR}/tmp/temp.input.sam
-  rm ${TRDIR}/tmp/candJunc.psl
-  rm ${TRDIR}/tmp/candJunc.fa
-  rm ${TRDIR}/tmp/candJunc.txt
-  rm ${TRDIR}/tmp/junc2ID.txt
-  rm ${TRDIR}/tmp/cj1.bed
-  rm ${TRDIR}/tmp/cj2.bed
-  rm ${TRDIR}/tmp/candJunc.inter.txt
-  rm ${TRDIR}/tmp/juncList12.txt.merge1
+  rm_file ${TRDIR}/tmp/temp.input.sam
+  rm_file ${TRDIR}/tmp/candJunc.psl
+  rm_file ${TRDIR}/tmp/candJunc.fa
+  rm_file ${TRDIR}/tmp/candJunc.txt
+  rm_file ${TRDIR}/tmp/junc2ID.txt
+  rm_file ${TRDIR}/tmp/cj1.bed
+  rm_file ${TRDIR}/tmp/cj2.bed
+  rm_file ${TRDIR}/tmp/candJunc.inter.txt
+  rm_file ${TRDIR}/tmp/juncList12.txt.merge1
 #__COMMENT_OUT__
 
   echo "Step2. Assemble Secence Data."
@@ -154,13 +143,11 @@ if [ $only_annotation -eq 0 ]; then
 # : <<'#__COMMENT_OUT__'
 
   #
-  echo "perl ${SCRIPTDIR}/makeRef2.pl ${TRDIR}/tmp/juncList12.txt.merge2 > ${TRDIR}/tmp/juncList12.ref.bed"
   perl ${SCRIPTDIR}/makeRef2.pl ${TRDIR}/tmp/juncList12.txt.merge2 > ${TRDIR}/tmp/juncList12.ref.bed
   check_error $?
 
   if [ -s ${TRDIR}/tmp/juncList12.ref.bed ]; then
     #
-    echo "${PATH_TO_BEDTOOLS}/fastaFromBed -fi ${PATH_TO_HG19REF} -bed ${TRDIR}/tmp/juncList12.ref.bed -fo ${TRDIR}/tmp/juncList12.ref.fasta -name -tab"
     ${PATH_TO_BEDTOOLS}/fastaFromBed -fi ${PATH_TO_HG19REF} -bed ${TRDIR}/tmp/juncList12.ref.bed -fo ${TRDIR}/tmp/juncList12.ref.fasta -name -tab
     check_error $?
   else
@@ -168,7 +155,6 @@ if [ $only_annotation -eq 0 ]; then
     check_error $?
   fi
   #
-  echo "perl ${SCRIPTDIR}/addRef2.pl ${TRDIR}/tmp/juncList12.txt.merge2 ${TRDIR}/tmp/juncList12.ref.fasta > ${TRDIR}/tmp/juncList12.ref.txt"
   perl ${SCRIPTDIR}/addRef2.pl ${TRDIR}/tmp/juncList12.txt.merge2 ${TRDIR}/tmp/juncList12.ref.fasta > ${TRDIR}/tmp/juncList12.ref.txt
   check_error $?
 
@@ -196,11 +182,9 @@ if [ $only_annotation -eq 0 ]; then
     echo "${seq_ids1},${seq_ids2}" > ${TRDIR}/tmp/idseq.txt 
     check_error $?
     #
-    echo "perl ${SCRIPTDIR}/makeCap3fa.pl ${TRDIR}/tmp/idseq.txt ${TRDIR}/tmp/targetId.sam > ${TRDIR}/tmp/temp.cap3.fa"
     perl ${SCRIPTDIR}/makeCap3fa.pl ${TRDIR}/tmp/idseq.txt ${TRDIR}/tmp/targetId.sam > ${TRDIR}/tmp/temp.cap3.fa
     check_error $?
     #
-    echo "${PATH_TO_CAP3}/cap3 ${TRDIR}/tmp/temp.cap3.fa -j 31 -o 16 -s 251 -p 66 -i 21 > ${TRDIR}/tmp/temp.cap3.contig"
     ${PATH_TO_CAP3}/cap3 ${TRDIR}/tmp/temp.cap3.fa -j 31 -o 16 -s 251 -p 66 -i 21 > ${TRDIR}/tmp/temp.cap3.contig
     check_error $?
  
@@ -213,11 +197,9 @@ if [ $only_annotation -eq 0 ]; then
     echo $pdn2contig >> ${TRDIR}/tmp/temp.fasta36.fa 
     
     #
-    echo "${PATH_TO_FASTA}/fasta36 -d 1 -m 8 -b 1 ${TRDIR}/tmp/temp.cap3.fa.cap.contigs ${TRDIR}/tmp/temp.fasta36.fa > ${TRDIR}/tmp/temp.fasta36.fa.contigs.fastaTabular"
     ${PATH_TO_FASTA}/fasta36 -d 1 -m 8 -b 1 ${TRDIR}/tmp/temp.cap3.fa.cap.contigs ${TRDIR}/tmp/temp.fasta36.fa > ${TRDIR}/tmp/temp.fasta36.fa.contigs.fastaTabular
     check_error $?
     #
-    echo "assembledContig=perl ${SCRIPTDIR}/extractContigSeq.pl ${TRDIR}/tmp/temp.cap3.fa.cap.contigs ${TRDIR}/tmp/temp.fasta36.fa.contigs.fastaTabular" 
     assembledContig=`perl ${SCRIPTDIR}/extractContigSeq.pl ${TRDIR}/tmp/temp.cap3.fa.cap.contigs ${TRDIR}/tmp/temp.fasta36.fa.contigs.fastaTabular`
     check_error $?
 
@@ -232,10 +214,8 @@ if [ $only_annotation -eq 0 ]; then
   done < ${TRDIR}/tmp/juncList12.ref.txt
 
   if [ -s ${TRDIR}/tmp/itdContig.fa ]; then
-    # echo "${PATH_TO_BLAT}/blat -stepSize=5 -repMatch=2253 -maxIntron=${THRES_MAX_ITD_LENGTH} ${PATH_TO_BLAT_REF} ${TRDIR}/tmp/itdContig.fa ${TRDIR}/tmp/itdContig.psl"
     # ${PATH_TO_BLAT}/blat -stepSize=5 -repMatch=2253 -maxIntron=${THRES_MAX_ITD_LENGTH} ${PATH_TO_BLAT_REF} ${TRDIR}/tmp/itdContig.fa ${TRDIR}/tmp/itdContig.psl
     #
-    echo "${PATH_TO_BLAT}/blat -stepSize=5 -repMatch=2253 -maxIntron=1000 ${PATH_TO_BLAT_REF} ${TRDIR}/tmp/itdContig.fa ${TRDIR}/tmp/itdContig.psl"
     ${PATH_TO_BLAT}/blat -stepSize=5 -repMatch=2253 -maxIntron=1000 ${PATH_TO_BLAT_REF} ${TRDIR}/tmp/itdContig.fa ${TRDIR}/tmp/itdContig.psl
     check_error $?
   else 
@@ -243,26 +223,25 @@ if [ $only_annotation -eq 0 ]; then
     check_error $?
   fi
   #
-  echo "perl ${SCRIPTDIR}/psl2itdcontig.pl ${TRDIR}/tmp/itdContig.psl ${TRDIR}/tmp/juncList12.contig.txt $THRES_MIN_ITD_LENGTH > ${TRDIR}/tmp/juncListitd12.txt"
   perl ${SCRIPTDIR}/psl2itdcontig.pl ${TRDIR}/tmp/itdContig.psl ${TRDIR}/tmp/juncList12.contig.txt $THRES_MIN_ITD_LENGTH > ${TRDIR}/tmp/juncListitd12.txt
   check_error $?
 
-  rm ${TRDIR}/tmp/juncList12.ref.txt
-  rm ${TRDIR}/tmp/juncList12.ref.fasta
-  rm ${TRDIR}/tmp/temp.fasta36.fa.contigs.fastaTabular
-  rm ${TRDIR}/tmp/temp.fasta36.fa
-  rm ${TRDIR}/tmp/temp.cap3.fa.cap.singlets
-  rm ${TRDIR}/tmp/temp.cap3.fa.cap.info
-  rm ${TRDIR}/tmp/temp.cap3.fa.cap.contigs.qual
-  rm ${TRDIR}/tmp/temp.cap3.fa.cap.contigs.links
-  rm ${TRDIR}/tmp/temp.cap3.fa.cap.contigs
-  rm ${TRDIR}/tmp/temp.cap3.fa.cap.ace
-  rm ${TRDIR}/tmp/temp.cap3.fa
-  rm ${TRDIR}/tmp/temp.cap3.contig
-  rm ${TRDIR}/tmp/juncList12.contig.txt
-  rm ${TRDIR}/tmp/itdContig.fa
-  rm ${TRDIR}/tmp/idseq.txt
-  rm ${TRDIR}/tmp/itdContig.psl
+  rm_file ${TRDIR}/tmp/juncList12.ref.txt
+  rm_file ${TRDIR}/tmp/juncList12.ref.fasta
+  rm_file ${TRDIR}/tmp/temp.fasta36.fa.contigs.fastaTabular
+  rm_file ${TRDIR}/tmp/temp.fasta36.fa
+  rm_file ${TRDIR}/tmp/temp.cap3.fa.cap.singlets
+  rm_file ${TRDIR}/tmp/temp.cap3.fa.cap.info
+  rm_file ${TRDIR}/tmp/temp.cap3.fa.cap.contigs.qual
+  rm_file ${TRDIR}/tmp/temp.cap3.fa.cap.contigs.links
+  rm_file ${TRDIR}/tmp/temp.cap3.fa.cap.contigs
+  rm_file ${TRDIR}/tmp/temp.cap3.fa.cap.ace
+  rm_file ${TRDIR}/tmp/temp.cap3.fa
+  rm_file ${TRDIR}/tmp/temp.cap3.contig
+  rm_file ${TRDIR}/tmp/juncList12.contig.txt
+  rm_file ${TRDIR}/tmp/itdContig.fa
+  rm_file ${TRDIR}/tmp/idseq.txt
+  rm_file ${TRDIR}/tmp/itdContig.psl
 #__COMMENT_OUT__
 
   echo "Step3. Check Assembled Contigs."
@@ -295,11 +274,9 @@ if [ $only_annotation -eq 0 ]; then
             check_error $?
 
             #
-            echo "${PATH_TO_FASTA}/fasta36 -d 1 -m 8 -b 1 ${TRDIR}/tmp/temp.fasta36.oin.fa ${TRDIR}/tmp/temp.fasta36.pdn.fa > ${TRDIR}/tmp/temp.fasta36.oin.fastaTabular"
             ${PATH_TO_FASTA}/fasta36 -d 1 -m 8 -b 1 ${TRDIR}/tmp/temp.fasta36.oin.fa ${TRDIR}/tmp/temp.fasta36.pdn.fa > ${TRDIR}/tmp/temp.fasta36.oin.fastaTabular
             check_error $?
             #
-            echo "alignmentScore=perl ${SCRIPTDIR}/getAlignmentScore.pl ${TRDIR}/tmp/temp.fasta36.oin.fastaTabular"
             alignmentScore=`perl ${SCRIPTDIR}/getAlignmentScore.pl ${TRDIR}/tmp/temp.fasta36.oin.fastaTabular`
             check_error $?
             #
@@ -311,14 +288,13 @@ if [ $only_annotation -eq 0 ]; then
   done < ${TRDIR}/tmp/juncListitd12.txt
 
   #
-  echo "perl ${SCRIPTDIR}/itddetect.pl ${TRDIR}/tmp/juncListitd13.txt > ${TRDIR}/tmp/juncListitd14.txt"
   perl ${SCRIPTDIR}/itddetect.pl ${TRDIR}/tmp/juncListitd13.txt > ${TRDIR}/tmp/juncListitd14.txt
   check_error $?
   
-  rm ${TRDIR}/tmp/temp.fasta36.pdn.fa
-  rm ${TRDIR}/tmp/temp.fasta36.oin.fastaTabular
-  rm ${TRDIR}/tmp/temp.fasta36.oin.fa
-  rm ${TRDIR}/tmp/juncListitd13.txt
+  rm_file ${TRDIR}/tmp/temp.fasta36.pdn.fa
+  rm_file ${TRDIR}/tmp/temp.fasta36.oin.fastaTabular
+  rm_file ${TRDIR}/tmp/temp.fasta36.oin.fa
+  rm_file ${TRDIR}/tmp/juncListitd13.txt
 
 #__COMMENT_OUT__
 
@@ -333,15 +309,12 @@ check_error $?
 if [ -s ${TRDIR}/tmp/juncListitd14.txt ]; then
 
   #
-  echo "perl ${SCRIPTDIR}/addJunctionPosition.pl ${TRDIR}/tmp/juncListitd14.txt ${TRDIR}/tmp/temp.range.bed ${TRDIR}/tmp/juncListitd14.range.txt"
   perl ${SCRIPTDIR}/addJunctionPosition.pl ${TRDIR}/tmp/juncListitd14.txt ${TRDIR}/tmp/temp.range.bed ${TRDIR}/tmp/juncListitd14.range.txt
   check_error $?
   #
-  echo "${PATH_TO_SAMTOOLS}/samtools view -h -b -F $SAM_FILTERING_FLAG -q $THRES_MAP_QUALITY -L ${TRDIR}/tmp/temp.range.bed $INPUTBAM > ${TRDIR}/tmp/temp.range.bam"
   ${PATH_TO_SAMTOOLS}/samtools view -h -b -F $SAM_FILTERING_FLAG -q $THRES_MAP_QUALITY -L ${TRDIR}/tmp/temp.range.bed $INPUTBAM > ${TRDIR}/tmp/temp.range.bam
   check_error $?
   #
-  echo "${PATH_TO_SAMTOOLS}/samtools index ${TRDIR}/tmp/temp.range.bam"
   ${PATH_TO_SAMTOOLS}/samtools index ${TRDIR}/tmp/temp.range.bam
   check_error $?
 
@@ -352,7 +325,6 @@ if [ -s ${TRDIR}/tmp/juncListitd14.txt ]; then
     range=${bp_chr}":"${bp_start}"-"${bp_end}
 
     #
-    echo "${PATH_TO_SAMTOOLS}/samtools depth -r $range ${TRDIR}/tmp/temp.range.bam > ${TRDIR}/tmp/temp.range.depth"
     ${PATH_TO_SAMTOOLS}/samtools depth -r $range ${TRDIR}/tmp/temp.range.bam > ${TRDIR}/tmp/temp.range.depth
     check_error $?
     #
@@ -365,94 +337,74 @@ if [ -s ${TRDIR}/tmp/juncListitd14.txt ]; then
   done < ${TRDIR}/tmp/juncListitd14.range.txt
 fi
 
-rm ${TRDIR}/tmp/temp.range.bed 
-rm ${TRDIR}/tmp/juncListitd14.range.txt
-rm ${TRDIR}/tmp/temp.range.bam.bai
-rm ${TRDIR}/tmp/temp.range.bam
-rm ${TRDIR}/tmp/temp.range.depth
+rm_file ${TRDIR}/tmp/temp.range.bed 
+rm_file ${TRDIR}/tmp/juncListitd14.range.txt
+rm_file ${TRDIR}/tmp/temp.range.bam.bai
+rm_file ${TRDIR}/tmp/temp.range.bam
+rm_file ${TRDIR}/tmp/temp.range.depth
 
 #__COMMENT_OUT__
 # : <<'#__COMMENT_OUT__'
 if [ -s ${TRDIR}/tmp/juncListitd14.depth.txt ]; then
 
   #
-  echo "perl ${SCRIPTDIR}/makelistBed.pl  ${TRDIR}/tmp/juncListitd14.depth.txt > ${TRDIR}/tmp/juncListitd14.bed "
   perl ${SCRIPTDIR}/makelistBed.pl  ${TRDIR}/tmp/juncListitd14.depth.txt > ${TRDIR}/tmp/juncListitd14.bed 
   check_error $?
   #
-  echo "${PATH_TO_BEDTOOLS}/intersectBed -a ${DBDIR}/refGene.merged.coding.exon.bed -b ${TRDIR}/tmp/juncListitd14.bed -wa | sort -u  > ${TRDIR}/tmp/refGene.merged.coding.exon.anno.bed"
   ${PATH_TO_BEDTOOLS}/intersectBed -a ${DBDIR}/refGene.merged.coding.exon.bed -b ${TRDIR}/tmp/juncListitd14.bed -wa | sort -u  > ${TRDIR}/tmp/refGene.merged.coding.exon.anno.bed
   check_error $?
   #
-  echo "perl ${SCRIPTDIR}/makeJuncToGene.pl ${TRDIR}/tmp/refGene.merged.coding.exon.anno.bed > ${TRDIR}/tmp/refGene.merged.coding.exon.merge.bed"
   perl ${SCRIPTDIR}/makeJuncToGene.pl ${TRDIR}/tmp/refGene.merged.coding.exon.anno.bed > ${TRDIR}/tmp/refGene.merged.coding.exon.merge.bed
   check_error $?
   #
-  echo "${PATH_TO_BEDTOOLS}/intersectBed -a ${DBDIR}/refGene.merged.coding.intron.bed -b ${TRDIR}/tmp/juncListitd14.bed -wa | sort -u > ${TRDIR}/tmp/refGene.merged.coding.intron.anno.bed"
   ${PATH_TO_BEDTOOLS}/intersectBed -a ${DBDIR}/refGene.merged.coding.intron.bed -b ${TRDIR}/tmp/juncListitd14.bed -wa | sort -u > ${TRDIR}/tmp/refGene.merged.coding.intron.anno.bed
   check_error $?
   #
-  echo "perl ${SCRIPTDIR}/makeJuncToGene.pl ${TRDIR}/tmp/refGene.merged.coding.intron.anno.bed > ${TRDIR}/tmp/refGene.merged.coding.intron.merge.bed"
   perl ${SCRIPTDIR}/makeJuncToGene.pl ${TRDIR}/tmp/refGene.merged.coding.intron.anno.bed > ${TRDIR}/tmp/refGene.merged.coding.intron.merge.bed
   check_error $?
   #
-  echo "${PATH_TO_BEDTOOLS}/intersectBed -a ${DBDIR}/refGene.merged.coding.5putr.bed -b ${TRDIR}/tmp/juncListitd14.bed -wa | sort -u > ${TRDIR}/tmp/refGene.merged.coding.5putr.anno.bed"
   ${PATH_TO_BEDTOOLS}/intersectBed -a ${DBDIR}/refGene.merged.coding.5putr.bed -b ${TRDIR}/tmp/juncListitd14.bed -wa | sort -u > ${TRDIR}/tmp/refGene.merged.coding.5putr.anno.bed
   check_error $?
   #
-  echo "perl ${SCRIPTDIR}/makeJuncToGene.pl ${TRDIR}/tmp/refGene.merged.coding.5putr.anno.bed > ${TRDIR}/tmp/refGene.merged.coding.5putr.merge.bed"
   perl ${SCRIPTDIR}/makeJuncToGene.pl ${TRDIR}/tmp/refGene.merged.coding.5putr.anno.bed > ${TRDIR}/tmp/refGene.merged.coding.5putr.merge.bed
   check_error $?
   #
-  echo "${PATH_TO_BEDTOOLS}/intersectBed -a ${DBDIR}/refGene.merged.coding.3putr.bed -b ${TRDIR}/tmp/juncListitd14.bed -wa | sort -u > ${TRDIR}/tmp/refGene.merged.coding.3putr.anno.bed "
   ${PATH_TO_BEDTOOLS}/intersectBed -a ${DBDIR}/refGene.merged.coding.3putr.bed -b ${TRDIR}/tmp/juncListitd14.bed -wa | sort -u > ${TRDIR}/tmp/refGene.merged.coding.3putr.anno.bed 
   check_error $?
   #
-  echo "perl ${SCRIPTDIR}/makeJuncToGene.pl ${TRDIR}/tmp/refGene.merged.coding.3putr.anno.bed > ${TRDIR}/tmp/refGene.merged.coding.3putr.merge.bed"
   perl ${SCRIPTDIR}/makeJuncToGene.pl ${TRDIR}/tmp/refGene.merged.coding.3putr.anno.bed > ${TRDIR}/tmp/refGene.merged.coding.3putr.merge.bed
   check_error $?
   #
-  echo "${PATH_TO_BEDTOOLS}/intersectBed -a ${DBDIR}/refGene.merged.noncoding.exon.bed -b ${TRDIR}/tmp/juncListitd14.bed -wa | sort -u > ${TRDIR}/tmp/refGene.merged.noncoding.exon.anno.bed "
   ${PATH_TO_BEDTOOLS}/intersectBed -a ${DBDIR}/refGene.merged.noncoding.exon.bed -b ${TRDIR}/tmp/juncListitd14.bed -wa | sort -u > ${TRDIR}/tmp/refGene.merged.noncoding.exon.anno.bed 
   check_error $?
   #
-  echo "perl ${SCRIPTDIR}/makeJuncToGene.pl ${TRDIR}/tmp/refGene.merged.noncoding.exon.anno.bed > ${TRDIR}/tmp/refGene.merged.noncoding.exon.merge.bed"
   perl ${SCRIPTDIR}/makeJuncToGene.pl ${TRDIR}/tmp/refGene.merged.noncoding.exon.anno.bed > ${TRDIR}/tmp/refGene.merged.noncoding.exon.merge.bed
   check_error $?
   #
-  echo "${PATH_TO_BEDTOOLS}/intersectBed -a ${DBDIR}/refGene.merged.noncoding.intron.bed -b ${TRDIR}/tmp/juncListitd14.bed -wa | sort -u > ${TRDIR}/tmp/refGene.merged.noncoding.intron.anno.bed"
   ${PATH_TO_BEDTOOLS}/intersectBed -a ${DBDIR}/refGene.merged.noncoding.intron.bed -b ${TRDIR}/tmp/juncListitd14.bed -wa | sort -u > ${TRDIR}/tmp/refGene.merged.noncoding.intron.anno.bed
   check_error $?
   #
-  echo "perl ${SCRIPTDIR}/makeJuncToGene.pl ${TRDIR}/tmp/refGene.merged.noncoding.intron.anno.bed > ${TRDIR}/tmp/refGene.merged.noncoding.intron.merge.bed"
   perl ${SCRIPTDIR}/makeJuncToGene.pl ${TRDIR}/tmp/refGene.merged.noncoding.intron.anno.bed > ${TRDIR}/tmp/refGene.merged.noncoding.intron.merge.bed
   check_error $?
   #
-  echo "${PATH_TO_BEDTOOLS}/intersectBed -a ${DBDIR}/ensGene.merged.bed -b ${TRDIR}/tmp/juncListitd14.bed -wa | sort -u > ${TRDIR}/tmp/ensGene.anno.bed"
   ${PATH_TO_BEDTOOLS}/intersectBed -a ${DBDIR}/ensGene.merged.bed -b ${TRDIR}/tmp/juncListitd14.bed -wa | sort -u > ${TRDIR}/tmp/ensGene.anno.bed
   check_error $?
   #
-  echo "perl ${SCRIPTDIR}/makeJuncToGene.pl ${TRDIR}/tmp/ensGene.anno.bed > ${TRDIR}/tmp/ensGene.anno.merge.bed"
   perl ${SCRIPTDIR}/makeJuncToGene.pl ${TRDIR}/tmp/ensGene.anno.bed > ${TRDIR}/tmp/ensGene.anno.merge.bed
   check_error $?
   #
-  echo "${PATH_TO_BEDTOOLS}/intersectBed -a ${DBDIR}/knownGene.merged.bed -b ${TRDIR}/tmp/juncListitd14.bed -wa | sort -u > ${TRDIR}/tmp/kownGene.anno.bed"
   ${PATH_TO_BEDTOOLS}/intersectBed -a ${DBDIR}/knownGene.merged.bed -b ${TRDIR}/tmp/juncListitd14.bed -wa | sort -u > ${TRDIR}/tmp/kownGene.anno.bed
   check_error $?
   #
-  echo "perl ${SCRIPTDIR}/makeJuncToGene.pl ${TRDIR}/tmp/kownGene.anno.bed > ${TRDIR}/tmp/kownGene.anno.merge.bed"
   perl ${SCRIPTDIR}/makeJuncToGene.pl ${TRDIR}/tmp/kownGene.anno.bed > ${TRDIR}/tmp/kownGene.anno.merge.bed
   check_error $?
   #
-  echo "${PATH_TO_BEDTOOLS}/intersectBed -a ${DBDIR}/simpleRepeat.merged.bed -b ${TRDIR}/tmp/juncListitd14.bed -wa | sort -u > ${TRDIR}/tmp/simpleRepeat.anno.bed"
   ${PATH_TO_BEDTOOLS}/intersectBed -a ${DBDIR}/simpleRepeat.merged.bed -b ${TRDIR}/tmp/juncListitd14.bed -wa | sort -u > ${TRDIR}/tmp/simpleRepeat.anno.bed
   check_error $?
   #
-  echo "perl ${SCRIPTDIR}/makeJuncToGene.pl ${TRDIR}/tmp/simpleRepeat.anno.bed > ${TRDIR}/tmp/simpleRepeat.anno.merge.bed"
   perl ${SCRIPTDIR}/makeJuncToGene.pl ${TRDIR}/tmp/simpleRepeat.anno.bed > ${TRDIR}/tmp/simpleRepeat.anno.merge.bed
   check_error $?
   #
-  echo "perl ${SCRIPTDIR}/addGeneAnno2.pl  ${TRDIR}/tmp/juncListitd14.depth.txt ${TRDIR}/tmp/refGene.merged.coding.exon.merge.bed ${TRDIR}/tmp/refGene.merged.coding.intron.merge.bed ${TRDIR}/tmp/refGene.merged.coding.5putr.merge.bed ${TRDIR}/tmp/refGene.merged.coding.3putr.merge.bed ${TRDIR}/tmp/refGene.merged.noncoding.exon.merge.bed ${TRDIR}/tmp/refGene.merged.noncoding.intron.merge.bed ${TRDIR}/tmp/ensGene.anno.merge.bed ${TRDIR}/tmp/kownGene.anno.merge.bed ${TRDIR}/tmp/simpleRepeat.anno.merge.bed > ${TRDIR}/tmp/juncListitd15.list "
   perl ${SCRIPTDIR}/addGeneAnno2.pl  ${TRDIR}/tmp/juncListitd14.depth.txt ${TRDIR}/tmp/refGene.merged.coding.exon.merge.bed ${TRDIR}/tmp/refGene.merged.coding.intron.merge.bed ${TRDIR}/tmp/refGene.merged.coding.5putr.merge.bed ${TRDIR}/tmp/refGene.merged.coding.3putr.merge.bed ${TRDIR}/tmp/refGene.merged.noncoding.exon.merge.bed ${TRDIR}/tmp/refGene.merged.noncoding.intron.merge.bed ${TRDIR}/tmp/ensGene.anno.merge.bed ${TRDIR}/tmp/kownGene.anno.merge.bed ${TRDIR}/tmp/simpleRepeat.anno.merge.bed > ${TRDIR}/tmp/juncListitd15.list 
   check_error $?
 
@@ -461,24 +413,24 @@ else
   check_error $?
 fi
 
-rm ${TRDIR}/tmp/refGene.merged.coding.exon.merge.bed
-rm ${TRDIR}/tmp/refGene.merged.coding.exon.anno.bed
-rm ${TRDIR}/tmp/refGene.merged.coding.intron.merge.bed
-rm ${TRDIR}/tmp/refGene.merged.coding.intron.anno.bed
-rm ${TRDIR}/tmp/refGene.merged.coding.5putr.merge.bed
-rm ${TRDIR}/tmp/refGene.merged.coding.5putr.anno.bed
-rm ${TRDIR}/tmp/refGene.merged.noncoding.exon.merge.bed
-rm ${TRDIR}/tmp/refGene.merged.noncoding.exon.anno.bed
-rm ${TRDIR}/tmp/refGene.merged.coding.3putr.merge.bed
-rm ${TRDIR}/tmp/refGene.merged.coding.3putr.anno.bed
-rm ${TRDIR}/tmp/refGene.merged.noncoding.intron.merge.bed
-rm ${TRDIR}/tmp/refGene.merged.noncoding.intron.anno.bed
-rm ${TRDIR}/tmp/ensGene.anno.merge.bed
-rm ${TRDIR}/tmp/ensGene.anno.bed
-rm ${TRDIR}/tmp/kownGene.anno.merge.bed
-rm ${TRDIR}/tmp/kownGene.anno.bed
-rm ${TRDIR}/tmp/simpleRepeat.anno.merge.bed
-rm ${TRDIR}/tmp/simpleRepeat.anno.bed
+rm_file ${TRDIR}/tmp/refGene.merged.coding.exon.merge.bed 
+rm_file ${TRDIR}/tmp/refGene.merged.coding.exon.anno.bed 
+rm_file ${TRDIR}/tmp/refGene.merged.coding.intron.merge.bed 
+rm_file ${TRDIR}/tmp/refGene.merged.coding.intron.anno.bed 
+rm_file ${TRDIR}/tmp/refGene.merged.coding.5putr.merge.bed 
+rm_file ${TRDIR}/tmp/refGene.merged.coding.5putr.anno.bed 
+rm_file ${TRDIR}/tmp/refGene.merged.noncoding.exon.merge.bed 
+rm_file ${TRDIR}/tmp/refGene.merged.noncoding.exon.anno.bed 
+rm_file ${TRDIR}/tmp/refGene.merged.coding.3putr.merge.bed 
+rm_file ${TRDIR}/tmp/refGene.merged.coding.3putr.anno.bed 
+rm_file ${TRDIR}/tmp/refGene.merged.noncoding.intron.merge.bed 
+rm_file ${TRDIR}/tmp/refGene.merged.noncoding.intron.anno.bed 
+rm_file ${TRDIR}/tmp/ensGene.anno.merge.bed 
+rm_file ${TRDIR}/tmp/ensGene.anno.bed 
+rm_file ${TRDIR}/tmp/kownGene.anno.merge.bed 
+rm_file ${TRDIR}/tmp/kownGene.anno.bed 
+rm_file ${TRDIR}/tmp/simpleRepeat.anno.merge.bed 
+rm_file ${TRDIR}/tmp/simpleRepeat.anno.bed 
 #__COMMENT_OUT__
 
 # : <<'#__COMMENT_OUT__'
@@ -490,11 +442,9 @@ if [ -s ${TRDIR}/tmp/juncListitd15.list ]; then
     check_error $?
   fi
   #
-  echo "perl ${SCRIPTDIR}/normalITDbedmaker2.pl ${INHOUSEDIR}/normal_inhouse_itd.list > ${TRDIR}/tmp/tmp.inhouse.txt"
   perl ${SCRIPTDIR}/normalITDbedmaker2.pl ${INHOUSEDIR}/normal_inhouse_itd.list > ${TRDIR}/tmp/tmp.inhouse.txt
   check_error $?
   #
-  echo "perl ${SCRIPTDIR}/makelistBed3.pl ${TRDIR}/tmp/juncListitd15.list ${TRDIR}/tmp/tmp.inhouse.txt $SAMPLE_NAME > ${TRDIR}/tmp/juncListitd16.list"
   perl ${SCRIPTDIR}/makelistBed3.pl ${TRDIR}/tmp/juncListitd15.list ${TRDIR}/tmp/tmp.inhouse.txt $SAMPLE_NAME > ${TRDIR}/tmp/juncListitd16.list
   check_error $?
   
@@ -503,23 +453,18 @@ if [ -s ${TRDIR}/tmp/juncListitd15.list ]; then
     /bin/echo -n > ${INHOUSEDIR}/normal_inhouse_breakpoint.list
   fi 
   #
-  echo "perl ${SCRIPTDIR}/normalBPbedmaker.pl ${INHOUSEDIR}/normal_inhouse_breakpoint.list ${TRDIR}/tmp/tmp.bp.left.txt ${TRDIR}/tmp/tmp.bp.right.txt $SAMPLE_NAME"
   perl ${SCRIPTDIR}/normalBPbedmaker.pl ${INHOUSEDIR}/normal_inhouse_breakpoint.list ${TRDIR}/tmp/tmp.bp.left.txt ${TRDIR}/tmp/tmp.bp.right.txt $SAMPLE_NAME
   check_error $?
   #
-  echo "perl ${SCRIPTDIR}/makelistBed2.pl ${TRDIR}/tmp/juncListitd16.list ${TRDIR}/tmp/juncListitd16_left.txt ${TRDIR}/tmp/juncListitd16_right.txt"
   perl ${SCRIPTDIR}/makelistBed2.pl ${TRDIR}/tmp/juncListitd16.list ${TRDIR}/tmp/juncListitd16_left.txt ${TRDIR}/tmp/juncListitd16_right.txt
   check_error $?
   #
-  echo "perl ${SCRIPTDIR}/mergeInhouse32.pl ${TRDIR}/tmp/juncListitd16_left.txt ${TRDIR}/tmp/tmp.bp.left.txt > ${TRDIR}/tmp/juncListitd16.inhouse.1.txt"
   perl ${SCRIPTDIR}/mergeInhouse32.pl ${TRDIR}/tmp/juncListitd16_left.txt ${TRDIR}/tmp/tmp.bp.left.txt > ${TRDIR}/tmp/juncListitd16.inhouse.1.txt
   check_error $?
   #
-  echo "perl ${SCRIPTDIR}/mergeInhouse32.pl ${TRDIR}/tmp/juncListitd16_right.txt ${TRDIR}/tmp/tmp.bp.right.txt > ${TRDIR}/tmp/juncListitd16.inhouse.2.txt"
   perl ${SCRIPTDIR}/mergeInhouse32.pl ${TRDIR}/tmp/juncListitd16_right.txt ${TRDIR}/tmp/tmp.bp.right.txt > ${TRDIR}/tmp/juncListitd16.inhouse.2.txt
   check_error $?
   #
-  echo "perl ${SCRIPTDIR}/mergeInhouse33.pl ${TRDIR}/tmp/juncListitd16.list ${TRDIR}/tmp/juncListitd16.inhouse.1.txt ${TRDIR}/tmp/juncListitd16.inhouse.2.txt > ${TRDIR}/tmp/juncListitd17.list"
   perl ${SCRIPTDIR}/mergeInhouse33.pl ${TRDIR}/tmp/juncListitd16.list ${TRDIR}/tmp/juncListitd16.inhouse.1.txt ${TRDIR}/tmp/juncListitd16.inhouse.2.txt > ${TRDIR}/tmp/juncListitd17.list
   check_error $?
   #
@@ -529,23 +474,21 @@ else
 fi
 
 #
-echo "perl ${SCRIPTDIR}/makeITDBed3.pl ${TRDIR}/tmp/juncListitd15.list $SAMPLE_NAME > ${TRDIR}/inhouse_itd.tsv"
 perl ${SCRIPTDIR}/makeITDBed3.pl ${TRDIR}/tmp/juncListitd15.list $SAMPLE_NAME > ${TRDIR}/inhouse_itd.tsv
 check_error $?
 #
-echo "cp ${TRDIR}/tmp/juncListitd17.list ${TRDIR}/itd_list.tsv"
 cp ${TRDIR}/tmp/juncListitd17.list ${TRDIR}/itd_list.tsv
 check_error $?
 
-rm ${TRDIR}/tmp/tmp.inhouse.txt
-rm ${TRDIR}/tmp/tmp.bp.right.txt
-rm ${TRDIR}/tmp/tmp.bp.left.txt
-rm ${TRDIR}/tmp/juncListitd16_right.txt
-rm ${TRDIR}/tmp/juncListitd16.list
-rm ${TRDIR}/tmp/juncListitd16_left.txt
-rm ${TRDIR}/tmp/juncListitd16.inhouse.1.txt
-rm ${TRDIR}/tmp/juncListitd17.list
-rm ${TRDIR}/tmp/juncListitd16.inhouse.2.txt
+rm_file ${TRDIR}/tmp/tmp.inhouse.txt 
+rm_file ${TRDIR}/tmp/tmp.bp.right.txt 
+rm_file ${TRDIR}/tmp/tmp.bp.left.txt 
+rm_file ${TRDIR}/tmp/juncListitd16_right.txt 
+rm_file ${TRDIR}/tmp/juncListitd16.list 
+rm_file ${TRDIR}/tmp/juncListitd16_left.txt 
+rm_file ${TRDIR}/tmp/juncListitd16.inhouse.1.txt 
+rm_file ${TRDIR}/tmp/juncListitd17.list 
+rm_file ${TRDIR}/tmp/juncListitd16.inhouse.2.txt 
 #__COMMENT_OUT__
 
 echo "***** [$0] end " `date +'%Y/%m/%d %H:%M:%S'` " *****"
