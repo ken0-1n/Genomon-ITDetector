@@ -11,17 +11,18 @@ only_annotation=0
 # : <<'#__COMMENT_OUT__'
 write_usage() {
   echo ""
-  echo "Usage: `basename $0` <path to the target bam file> <path to the output directory> <sample name> [<config .env>]"
+  echo "Usage: `basename $0` <path to the target bam file> <path to the output directory> <sample name> [<inhouse directory>] [<config .env>]"
   echo ""
 }
 #__COMMENT_OUT__
 
-# readonly DIR=`dirname ${0}`
-readonly DIR=.
+readonly DIR=`dirname ${0}`
+#readonly DIR=.
 readonly INPUTBAM=$1
 readonly TRDIR=$2
 readonly SAMPLE_NAME=$3
-itd_env=$4
+INHOUSEDIR=$4
+itd_env=$5
 
 if [ $# -le 2 -o $# -ge 5 ]; then
   echo "wrong number of arguments"
@@ -29,7 +30,7 @@ if [ $# -le 2 -o $# -ge 5 ]; then
   exit 1
 fi
 
-if [ $# -eq 3 ]; then
+if [ $# -eq 4 ]; then
   conf_dir=`echo $(cd ${DIR} && pwd)`
   itd_env=${DIR}/config.env
 else
@@ -48,8 +49,11 @@ fi
 script_main_dir=`echo $(cd ${DIR} && pwd)`
 readonly SCRIPTDIR=${script_main_dir}/subscripts
 readonly DBDIR=${script_main_dir}/db
-readonly INHOUSEDIR=${script_main_dir}/inhouse
 readonly UTIL=${SCRIPTDIR}/utility.sh
+
+if [ -z $INHOUSEDIR ]; then
+    INHOUSEDIR=${script_main_dir}/inhouse
+fi
 
 if [ ! -f ${UTIL} ]; then
   echo "${UTIL} does not exists."
